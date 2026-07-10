@@ -1,9 +1,10 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+import AppFooter from '@/components/AppFooter.vue';
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <AppFooter />
+    
   </main>
 </template>
