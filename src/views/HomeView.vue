@@ -1,9 +1,10 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+import LMap from '@/components/mapa/LMap.vue';
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+
+    <LMap/>
   </main>
 </template>
