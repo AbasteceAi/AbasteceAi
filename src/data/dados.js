@@ -1,49 +1,93 @@
-const pontosTuristicos = [
-  {
-    id:1,
-    nome: "Mirante do Morro da Boa Vista",
-    coordenadas: [-26.2995, -48.8354],
-    endereco: "Rua Pastor Guilherme Rau, s/n - Boa Vista",
-    preco: "Gratuito",
-    descricao: "Plataforma de observação a 250 metros de altura com vista panorâmica de 360 graus de toda a cidade e da Baía de Babitonga."
+const postosJoinville = [
+  { id:1,
+    nome: "Auto Desk America",
+    endereco: "R. Max Colin, 585 - Centro, Joinville - SC, 89204-040",
+    coordenadas: [-26.29489, -48.84820],
+    avaliacao: 4.3,
+    numAvaliacoes: 1201,
+    horario: "24 horas",
+    telefone: "+55 47 99922-5362"
   },
-  {
-      id:2,
-    nome: "Rua das Palmeiras (Alameda Brüstlein)",
-    coordenadas: [-26.3013, -48.8446],
-    endereco: "Alameda Brüstlein, s/n - Centro",
-    preco: "Gratuito",
-    descricao: "Via histórica icônica cercada por dezenas de palmeiras imperiais imponentes, ideal para caminhadas e fotos."
+  {id:2,
+    nome: "Posto Ipiranga (Centro)",
+    endereco: "R. Visc. de Taunay, 1240 - Centro, Joinville - SC, 89203-005",
+    coordenadas: [-26.31074, -48.85573],
+    avaliacao: 4.1,
+    numAvaliacoes: 1368,
+    horario: "24 horas",
+    telefone: "+55 47 3439-6605"
   },
-  {
-      id:3,
-    nome: "Museu Nacional de Imigração e Colonização",
-    coordenadas: [-26.3006, -48.8441],
-    endereco: "Rua Rio Branco, 229 - Centro",
-    preco: "Gratuito",
-    descricao: "Casarão histórico do século XIX que preserva a memória, objetos, documentos e a história dos colonizadores europeus da região."
+  {id:3,
+    nome: "Posto Zandoná 1",
+    endereco: "R. Benjamin Constant, 2946 - Costa e Silva, Joinville - SC, 89217-301",
+    coordenadas: [-26.28461, -48.87481],
+    avaliacao: 4.5,
+    numAvaliacoes: 1649,
+    horario: "24 horas",
+    telefone: "+55 47 3028-4953"
   },
-  {
-      id:4,
-    nome: "Pórtico e Moinho da XV",
-    coordenadas: [-26.3012, -48.8821],
-    endereco: "Av. Brig. Eduardo Gomes, 2721 - Glória",
-    preco: "Gratuito",
-    descricao: "O cartão-postal oficial de entrada da cidade com arquitetura enxaimel germânica. Abriga uma Central de Atendimento ao Turista."
+  {id:4,
+    nome: "Posto Atacadão",
+    endereco: "BR-101, 206 - km40 - Glória, Joinville - SC, 89216-501",
+    coordenadas:  [-26.30500, -48.88054],
+    avaliacao: 4.0,
+    numAvaliacoes: 297,
+    horario: "6h - 22h (dom: 6h - 21h)",
+    telefone: "+55 47 98843-8939"
   },
-  {  id:5,
-    nome: "Parque dos Hemerocallis (Hemero)",
-    coordenadas: [-26.2415, -48.8895],
-    endereco: "Rua Tenente Antônio João, 4257 - Jardim Sofia",
-    preco: "R$ 40,00 (Inteira) / R$ 20,00 (Meia)",
-    descricao: "Parque botânico com belíssimos jardins floridos temáticos, trilhas ecológicas, lagos com carpas e áreas de contemplação."
+  {id:5,
+    nome: "Posto Bavária",
+    endereco: "BR-101 - Pirabeiraba, Joinville - SC, 89239-500",
+    coordenadas:[-26.21921, -48.91584],
+    avaliacao: 4.4,
+    numAvaliacoes: 709,
+    horario: "24 horas",
+    telefone: "+55 47 3427-1752"
   },
-  {  id:6,
-    nome: "Parque Zoobotânico de Joinville",
-    coordenadas: [-26.2961, -48.8378],
-    endereco: "Rua Pastor Guilherme Rau, 462 - Saguaçu",
-    preco: "Gratuito",
-    descricao: "Área verde de preservação da Mata Atlântica aos pés do morro, com trilhas rústicas e recintos com animais nativos."
+  {id:6,
+    nome: "Posto Graciosa Ltda - Matriz",
+    endereco: "R. Florianópolis, 510 - Guanabara, Joinville - SC, 89207-000",
+    coordenadas: [-26.32449, -48.83731],
+    avaliacao: 4.5,
+    numAvaliacoes: 1315,
+    horario: "24 horas (seg até 0h, dom 0h-22h)",
+    telefone: "+55 47 3436-0030"
+  },
+  {id:7,
+    nome: "Posto Ipiranga (Floresta)",
+    endereco: "R. Santa Catarina, 845 - Floresta, Joinville - SC, 89211-305",
+    coordenadas:[-26.32984, -48.84639],
+    avaliacao: 4.2,
+    numAvaliacoes: 195,
+    horario: "não informado",
+    telefone: "+55 51 99684-5478"
+  },
+  {id:8,
+    nome: "Posto Getúlio",
+    endereco: "Av. Getúlio Vargas, 175 - Bucarein, Joinville - SC, 89202-205",
+    coordenadas:  [-26.30900, -48.84537],
+    avaliacao: 4.3,
+    numAvaliacoes: 555,
+    horario: "24 horas",
+    telefone: "+55 47 99922-7825"
+  },
+  {id:9,
+    nome: "Posto RC - Centro",
+    endereco: "R. Visc. de Taunay, 155 - Centro, Joinville - SC, 89201-080",
+    coordenadas: [-26.30265, -48.84911],
+    avaliacao: 3.5,
+    numAvaliacoes: 69,
+    horario: "24 horas",
+    telefone: "+55 47 99921-0026"
+  },
+  {id:10,
+    nome: "Posto Zandoná 7",
+    endereco: "R. Ottokar Doerffel, 1489 - Anita Garibaldi, Joinville - SC, 89203-001",
+    coordenadas:[-26.31904, -48.86777],
+    avaliacao: 4.6,
+    numAvaliacoes: 1893,
+    horario: "6h - 22h",
+    telefone: "+55 47 3438-8571"
   }
 ];
- export {pontosTuristicos}
+export {postosJoinville}
