@@ -1,10 +1,11 @@
 <script setup>
-import LMap from '@/components/mapa/LMap.vue';
+import ListaPostos from '@/components/mapa/ListaPostos.vue';
+
 </script>
 
 <template>
   <main>
-
-    <LMap/>
+  <ListaPostos/>
+  
   </main>
 </template>
