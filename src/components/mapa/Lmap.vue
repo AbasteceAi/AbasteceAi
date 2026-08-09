@@ -23,7 +23,7 @@ async function carregarPostos() {
     postos.value = postosComCoordenadas
     adicionarMarcadores()
 }
-
+-26.191623 -48.510821
 function adicionarMarcadores() {
   const myIcon = L.icon({
     iconUrl: icon,
@@ -32,7 +32,12 @@ function adicionarMarcadores() {
     popupAnchor: [0, -30],
   })
   postos.value.forEach(ponto => {
+    const conteudo = `<div style="font-family: sans-serif; line-height: 1.4; color: #333; min-width: 180px;"> 
+      <h3> ${ponto.nome} </h3>
+      <h3> ${ponto.coordenadas} </h3>
+      </div>`
     L.marker(ponto.coordenadas, {icon: myIcon})
+    .bindPopup(conteudo)
     .addTo(mapa)
   })
 }

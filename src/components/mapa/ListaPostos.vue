@@ -21,6 +21,7 @@ async function carregar() {
 }
 
 onMounted(carregar)
+
 </script>
 <template>
     <main>
@@ -41,6 +42,6 @@ onMounted(carregar)
 <style scoped>
     main {
        display: grid;
-       grid-template-columns: repeat(2,1fr);
+       grid-template-columns: 600px 1fr;
     }
 </style>
