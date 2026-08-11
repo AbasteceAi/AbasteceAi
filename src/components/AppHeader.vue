@@ -1,5 +1,6 @@
 <script setup>
-    
+import { RouterLink } from 'vue-router';
+
 </script>
 
 <template>
@@ -23,11 +24,11 @@
         </div>
 
         <RouterLink to="/favoritos" class="estrela">
-            <FontAwesomeIcon :icon="byPrefixAndName.fas['star']" />
+           
         </RouterLink>
 
         <RouterLink to="/perfil" class="user">
-            <FontAwesomeIcon :icon="byPrefixAndName.fal['user']" />
+          
         </RouterLink>
 
     </header>
