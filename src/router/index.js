@@ -6,12 +6,19 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      component: HomeView, 
-      path: '/',
-      component: mapa,
-      path: '/',
-      component: postos,
-      path: '/',
+      name: 'home',
+      component: HomeView,   
+    },
+    {
+    path: '/',
+      component: mapa
+    },
+    {
+    path: '/',
+      component: postos
+    },
+    {
+    path: '/',
       component: favoritos,
     }
   ]
