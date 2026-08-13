@@ -22,7 +22,7 @@
 <style scoped>
 .banner {
     width: 100%;
-    height: 315px;
+    height: 475px;
     position: relative;
     background-image: url('/teste3.png');
     background-size: cover;
@@ -32,18 +32,25 @@
 
 .texto {
     position: absolute;
-    left: 60px;
-    top: 50px;
+    left: 100px;
+    top: 10px;
 }
 
 h1 {
-    font-size: 28px;
+    font-size: 40px;
     margin-bottom: 30px;
+    color: #ffffff;
+}
+
+h1 span {
+    color: #fec12b;
 }
 
 p {
-    font-size: 16px;
+    font-size: 25px;
     line-height: 1.5;
+    font-weight: 200;
+    color: #ffffff;
 }
 
 .imagem {
@@ -53,7 +60,8 @@ p {
 }
 
 .imagem img {
-    width: 360px;
+    width: 550px;
     display: block;
+    margin: 0 60px 0 0;
 }
 </style>
