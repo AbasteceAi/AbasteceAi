@@ -2,7 +2,7 @@
 defineProps(['posto', 'combustivelSel'])
 </script>
 <template>
-  
+
     <div class="card" >
            <div class="faixa"><div> <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
  class="locE" viewBox="0 0 930.000000 1280.000000"
@@ -30,10 +30,10 @@ Created by potrace 1.15, written by Peter Selinger 2001-2017
          <h2 class="nome">{{ posto.nome }}</h2>
          <div>
             <div>
-            <p v-if="posto.aberto === true" class="status aberto"> <span> 
+            <p v-if="posto.aberto === true" class="status aberto"> <span>
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 120 120" enable-background="new 0 0 120 120" xml:space="preserve"><circle cx="60" cy="60.834" r="54.167"/></svg>
             </span> Aberto </p>
-            <p v-else-if="posto.aberto === false" class="status fechado"><span><svg  version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            <p v-else-if="posto.aberto === false" class="status fechado"><span><svg  version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
 	 viewBox="0 0 120 120" enable-background="new 0 0 120 120" xml:space="preserve">
 <circle cx="60" cy="60.834" r="54.167"/>
 </svg></span> Fechado </p>
@@ -50,9 +50,9 @@ Created by potrace 1.15, written by Peter Selinger 2001-2017
        <div v-for="preco in posto.precos" :key="preco.tipo_combustivel">
        <div>
          <p>{{ preco.tipo_combustivel }}</p>
-         <h1>{{ preco.preco_litro }}</h1>
+         <h1><span>R$</span> {{ preco.preco_litro }}</h1>
          </div>
-         
+
        </div>
       </div>
     </div>
@@ -60,7 +60,7 @@ Created by potrace 1.15, written by Peter Selinger 2001-2017
 <style scoped>
 .card{
   border-radius: 16px;
-  overflow: hidden; 
+  overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   width: 90%;
   padding-top: 0;
@@ -101,7 +101,7 @@ Created by potrace 1.15, written by Peter Selinger 2001-2017
 .nome{
   font-size: 1.5rem;
   color: #002492;
-  
+
 }
 .locE{
       fill: #334582;

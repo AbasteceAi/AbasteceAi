@@ -3,9 +3,9 @@ import ListaPostos from '@/components/mapa/ListaPostos.vue';
 
 </script>
 
-<template>
+<template>  
   <main>
   <ListaPostos/>
-  
+
   </main>
 </template>

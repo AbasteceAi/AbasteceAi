@@ -34,3 +34,4 @@ export function ordenarPorDistancia(postos, userLat, userLng) {
     distancia: calcularDistancia(userLat, userLng, p.latitude, p.longitude)
   })).sort((a, b) => a.distancia - b.distancia)
 }
+
