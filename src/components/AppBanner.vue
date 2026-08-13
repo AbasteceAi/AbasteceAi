@@ -24,7 +24,7 @@
     width: 100%;
     height: 475px;
     position: relative;
-    background-image: url('/teste3.png');
+    background-image: url('banner.png');
     background-size: cover;
     background-position: center;
     overflow: hidden;
