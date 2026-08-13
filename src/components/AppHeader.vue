@@ -66,9 +66,9 @@ import { RouterLink } from 'vue-router'
 
 <style scoped>
 .header {
-  width: calc(100% - 40px);
+  width: 100%;
   height: 66px;
-  margin: 34px 20px 0;
+  margin: 0;
   padding: 0 20px;
   box-sizing: border-box;
   background-color: #334582;
