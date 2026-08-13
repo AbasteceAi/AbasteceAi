@@ -87,14 +87,13 @@ import { RouterLink } from 'vue-router'
 }
 
 .logo img {
-  width: 38px;
-  height: 38px;
+  width: 42px;
   object-fit: contain;
 }
 
 .logo span {
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 650;
   white-space: nowrap;
 }
 
@@ -108,7 +107,7 @@ import { RouterLink } from 'vue-router'
 
 .nav a {
   min-width: 94px;
-  height: 26px;
+  height: 32px;
   padding: 0 15px;
   box-sizing: border-box;
   border: 1px solid #fec12b;
@@ -117,7 +116,7 @@ import { RouterLink } from 'vue-router'
   justify-content: center;
   align-items: center;
   color: white;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   text-decoration: none;
   transition: all 0.2s ease;
