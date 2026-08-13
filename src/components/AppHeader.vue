@@ -67,7 +67,7 @@ import { RouterLink } from 'vue-router'
 <style scoped>
 .header {
   width: 100%;
-  height: 66px;
+  height: 80px;
   margin: 0;
   padding: 0 20px;
   box-sizing: border-box;
@@ -135,7 +135,7 @@ import { RouterLink } from 'vue-router'
   justify-content: right;
 }
 .pesquisa {
-  height: 26px;
+  height: 34px;
   flex: 1;
   max-width: 230px;
   min-width: 150px;
@@ -153,7 +153,7 @@ import { RouterLink } from 'vue-router'
   outline: none;
   background: transparent;
   color: #334582;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
 }
 
@@ -163,8 +163,8 @@ import { RouterLink } from 'vue-router'
 }
 
 .search-icon {
-  width: 15px;
-  height: 15px;
+  width: 18px;
+  height: 18px;
   margin-right: 5px;
   flex-shrink: 0;
 }
