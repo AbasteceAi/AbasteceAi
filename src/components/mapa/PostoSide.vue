@@ -1,5 +1,8 @@
 <script setup>
-defineProps(['posto', 'combustivelSel'])
+const props =defineProps(['posto', 'combustivelSel']);
+function precoDoTipo() {
+  return props.posto.precos?.find(p => p.tipo_combustivel === props.combustivelSel)
+}
 </script>
 <template>
 
@@ -47,10 +50,10 @@ Created by potrace 1.15, written by Peter Selinger 2001-2017
          </div>
          </div>
        </div>
-       <div v-for="preco in posto.precos" :key="preco.tipo_combustivel">
+       <div v-if="precoDoTipo()" >
        <div>
-         <p>{{ preco.tipo_combustivel }}</p>
-         <h1><span>R$</span> {{ preco.preco_litro }}</h1>
+         <p>{{ precoDoTipo().tipo_combustivel }}</p>
+         <h1><span>R$</span> {{ precoDoTipo().preco_litro.toFixed(2) }}</h1>
          </div>
 
        </div>
@@ -60,6 +63,7 @@ Created by potrace 1.15, written by Peter Selinger 2001-2017
 <style scoped>
 .card{
   border-radius: 16px;
+  background-color: #FFF;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   width: 90%;
@@ -110,39 +114,6 @@ Created by potrace 1.15, written by Peter Selinger 2001-2017
 .loc{
     fill: #FEC12B;
     width: 20px;
-}
-.cursor{
-    width: 25px;
-    height: 25px;
-}
-
-.status.aberto span svg{
-    fill: #2F7E3A;
-    width: 10px;
-    margin: 0 auto;
-}
-.status.aberto{
-    color: #2F7E3A;
-    background-color:#89B66E ;
-    padding: 5px;
-    border-radius: 10px;
-    font-size: 15px;
-    font-weight: bold;
-    height: 20px;
-}
-.status.fechado span svg {
-     fill: #7E2F2F;
-    width: 10px;
-    margin: 0 auto;
-}
-.status.fechado{
-    color: #7E2F2F;
-    background-color:#B66E6E ;
-    padding: 5px;
-    border-radius: 10px;
-    font-size: 15px;
-    font-weight: bold;
-    height: 20px;
 }
 .dist{
     font-size: 15px;

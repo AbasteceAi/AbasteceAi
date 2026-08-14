@@ -1,29 +1,31 @@
 <script setup>
-import "leaflet/dist/leaflet.css";
 import { ref, onMounted } from "vue";
-import { supabase } from "@/data/supabaseClient";
+import { buscarPostos, obterLoc, ordenarPorDistancia } from "@/services/postos";
 import icon from '@/assets/icon/icon.png'
 import * as L from 'leaflet';
+import { mostrarConteudo } from "@/utils/conteudo";
+
 const postos = ref ([]);
 let mapa = null;
 
 async function carregarPostos() {
-    const {data, error} = await supabase
-    .from('postos')
-    .select('*')
-    if (error) {
-        console.error(error)
-        return
-    }
-    const postosComCoordenadas = data.map(posto => ({
-        ...posto,
-        coordenadas:[posto.latitude, posto.longitude]
-    }))
+  const dados = await buscarPostos()
 
-    postos.value = postosComCoordenadas
-    adicionarMarcadores()
+  const comCoordenadas = dados.map(posto => ({
+    ...posto,
+    coordenadas: [posto.latitude, posto.longitude]
+  }))
+    try {
+    const { lat, lng } = await obterLoc()
+     postos.value = ordenarPorDistancia(comCoordenadas, lat, lng)
+  } catch {
+
+    postos.value = comCoordenadas
+  }
+
+  adicionarMarcadores()
 }
--26.191623 -48.510821
+
 function adicionarMarcadores() {
   const myIcon = L.icon({
     iconUrl: icon,
@@ -32,12 +34,9 @@ function adicionarMarcadores() {
     popupAnchor: [0, -30],
   })
   postos.value.forEach(ponto => {
-    const conteudo = `<div style="font-family: sans-serif; line-height: 1.4; color: #333; min-width: 180px;"> 
-      <h3> ${ponto.nome} </h3>
-      <h3> ${ponto.coordenadas} </h3>
-      </div>`
+ console.log(ponto.nome, ponto.coordenadas)
     L.marker(ponto.coordenadas, {icon: myIcon})
-    .bindPopup(conteudo)
+    .bindPopup(mostrarConteudo(ponto))
     .addTo(mapa)
   })
 }
@@ -59,8 +58,13 @@ onMounted(async () => {
 </script>
 <template>
  <div style="display: flex; justify-content: end;">
- <div id="map" style="height: 100vh; width: 100%; "></div>
+ <div id="map" style="height: 95vh; width: 100%; "></div>
  </div>
 </template>
 <style scoped >
+:deep(.img){
+    width: 60px;
+    height: 60px;
+}
+
 </style>

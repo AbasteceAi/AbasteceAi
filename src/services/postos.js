@@ -35,3 +35,14 @@ export function ordenarPorDistancia(postos, userLat, userLng) {
   })).sort((a, b) => a.distancia - b.distancia)
 }
 
+export async function buscarTipoCombustivel(){
+  const {data, error} = await supabase
+  .from('precos')
+  .select('tipo_combustivel')
+
+  if (error) {
+    console.error(error)
+    return []
+  }
+  return [...new Set(data.map(p => p.tipo_combustivel))]
+}
