@@ -1,12 +1,13 @@
 <script setup>
 const props =defineProps(['posto', 'combustivelSel']);
+const emit = defineEmits(['clique'])
 function precoDoTipo() {
   return props.posto.precos?.find(p => p.tipo_combustivel === props.combustivelSel)
 }
 </script>
 <template>
 
-    <div class="card" >
+    <div class="card" @click="emit('clique' , posto)">
            <div class="faixa"><div> <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
  class="locE" viewBox="0 0 930.000000 1280.000000"
  preserveAspectRatio="xMidYMid meet">

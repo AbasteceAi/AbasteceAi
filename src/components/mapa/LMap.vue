@@ -1,46 +1,54 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { buscarPostos, obterLoc, ordenarPorDistancia } from "@/services/postos";
+import { onMounted, watch } from "vue";
+
 import icon from '@/assets/icon/icon.png'
 import * as L from 'leaflet';
 import { mostrarConteudo } from "@/utils/conteudo";
 
-const postos = ref ([]);
+
 let mapa = null;
 
-async function carregarPostos() {
-  const dados = await buscarPostos()
-
-  const comCoordenadas = dados.map(posto => ({
-    ...posto,
-    coordenadas: [posto.latitude, posto.longitude]
-  }))
-    try {
-    const { lat, lng } = await obterLoc()
-     postos.value = ordenarPorDistancia(comCoordenadas, lat, lng)
-  } catch {
-
-    postos.value = comCoordenadas
+const props = defineProps({
+  postos: {
+    type: Array,
+    default: () => []
+  },
+  combustivelSel: {
+    type: String,
+    default: ''
+  },
+  postoSel:{
+    type: Object,
+    default:null
   }
 
-  adicionarMarcadores()
-}
-
+})
+let marcadores = []
+ let marcadoresPorId = {}
 function adicionarMarcadores() {
+  marcadores.forEach(m => mapa.removeLayer(m))
+  marcadores =[]
   const myIcon = L.icon({
     iconUrl: icon,
     iconSize: [30, 30],
     iconAnchor: [15, 30],
     popupAnchor: [0, -30],
   })
-  postos.value.forEach(ponto => {
- console.log(ponto.nome, ponto.coordenadas)
-    L.marker(ponto.coordenadas, {icon: myIcon})
-    .bindPopup(mostrarConteudo(ponto))
+  props.postos.forEach(ponto => {
+  if (!ponto.latitude || !ponto.longitude) return
+   const coordenadas = [ponto.latitude, ponto.longitude]
+   const marker =
+    L.marker(coordenadas, {icon: myIcon})
+    .bindPopup(mostrarConteudo(ponto, props.combustivelSel), {
+      minWidth: 300,
+      maxWidth: 400,
+    })
     .addTo(mapa)
+    marcadores.push(marker)
+    marcadoresPorId[ponto.id] = marker // guarda pra achar rapidinho depois
   })
 }
-onMounted(async () => {
+onMounted(() => {
   const key = 'Irt1tqYSdhb5lRg6Gqq2';
 
   mapa = L.map('map').setView([-26.3045, -48.8487], 14)
@@ -52,9 +60,19 @@ onMounted(async () => {
     crossOrigin: true
   }).addTo(mapa)
 
-  await carregarPostos() // só adiciona marcadores depois que os dados chegarem
+  adicionarMarcadores()
 })
-
+watch (() => [props.postos, props.combustivelSel], () =>{
+  if (mapa) adicionarMarcadores ()
+})
+watch (() => props.postoSel, (posto) => {
+  if (!posto || !mapa) return
+  const coordenadas = [posto.latitude, posto.longitude]
+  if ( !coordenadas) return
+  mapa.flyTo (coordenadas, 16, {duration:1})
+  const marker = marcadoresPorId[posto.id]
+  if (marker) marker.openPopup()
+})
 </script>
 <template>
  <div style="display: flex; justify-content: end;">
@@ -63,8 +81,50 @@ onMounted(async () => {
 </template>
 <style scoped >
 :deep(.img){
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
 }
+:deep(.contMapa){
+  display: flex;
+  flex-direction: column;
+ margin: 5px;
+ border-left: 2px solid #002492;
+ padding-left: 5px;
 
+}
+:deep(.cont1){
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+:deep(.cont1 h3){
+  font-size: 20px;
+  margin: 0;
+  color: #002492 ;
+  flex-wrap: wrap;
+}
+:deep(.cont2){
+  display: flex;
+  margin: 0;
+  align-items: center;
+}
+:deep(.cont2 p){
+ font-weight: 700;
+ font-size: 15px;
+ margin: 0;
+ display: flex;
+}
+:deep(.sim ){
+  width: 20px;
+  height: 20px;
+}
+:deep(.preco){
+  font-weight:bold ;
+  color: black;
+  font-size: 20px;
+}
+:deep(.linha-preco){
+  font-size: 15px;
+  margin: 5px;
+}
 </style>

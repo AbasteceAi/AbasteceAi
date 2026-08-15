@@ -14,6 +14,8 @@ html, body {
 }
 h1,h2,h3,h4,h5,h6{
      font-family: "Inter", sans-serif;
+     margin: 0;
+     padding: 0;
 }
 p{
     margin: 0;
@@ -24,12 +26,13 @@ p{
 .leaflet-popup-content-wrapper {
   padding: 0px;
   border-radius: 16px;
+  min-width: none;
   overflow: hidden;
 }
 
 .leaflet-popup-content {
   margin: 0px;
-
+ min-width: none;
 }
 
 .faixa-mapa {
@@ -37,10 +40,20 @@ p{
   width: 100%;
   background-color: #FEC12B;
 }
+.status{
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap; /* impede quebra de linha do texto */
+  width: fit-content;
+}
 .status.aberto span svg{
     fill: #2F7E3A;
     width: 10px;
     margin: 0 auto;
+
 }
 .status.aberto{
     color: #2F7E3A;
@@ -51,6 +64,7 @@ p{
     font-weight: bold;
     height: 20px;
     width: fit-content;
+    
 }
 .status.fechado span svg {
      fill: #7E2F2F;

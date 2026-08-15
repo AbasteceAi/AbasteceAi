@@ -4,9 +4,12 @@ import { buscarPostos, obterLoc, ordenarPorDistancia } from '@/services/postos';
 import PostoSide from './PostoSide.vue';
 import LMap from './LMap.vue';
 import FiltroCombustivel from './FiltroCombustivel.vue';
+
 const postos = ref([])
 const carregando = ref(true)
 const combustivelSelecionado = ref('gasolina comum')
+const postoSel = ref(null)
+
 async function carregar() {
   const dados = await buscarPostos()
 
@@ -39,11 +42,12 @@ onMounted(carregar)
       :key="posto.id"
       :posto="posto"
       :combustivel-sel="combustivelSelecionado"
+      @clique="postoSel = $event"
       />
       </div>
 </section>
 <section>
- <LMap :postos="postos" :combustivel-selecionado="combustivelSelecionado"/>
+ <LMap :postos="postos" :combustivel-sel="combustivelSelecionado" :posto-sel="postoSel"/>
 </section>
 </div>
       </main>
