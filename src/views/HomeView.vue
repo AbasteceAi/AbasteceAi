@@ -1,11 +1,9 @@
 <script setup>
-import ListaPostos from '@/components/mapa/ListaPostos.vue';
-
+  import AppBanner from '../components/AppBanner.vue'
 </script>
 
-<template>  
+<template>
   <main>
-  <ListaPostos/>
-
+    <AppBanner />
   </main>
 </template>
