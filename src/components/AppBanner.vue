@@ -12,7 +12,7 @@
     <p>Compare os preços em tempo real e economize toda semana.</p>
     </div>
     <div class="imagem">
-    <img src="/bonecoPosto.png" alt="boneco" />
+    <img src="/boneco.png" alt="boneco" />
     </div>
     </section>
     </main>
@@ -22,9 +22,9 @@
 <style scoped>
 .banner {
     width: 100%;
-    height: 475px;
+    height: 555px;
     position: relative;
-    background-image: url('/teste3.png');
+    background-image: url('banner2.png');
     background-size: cover;
     background-position: center;
     overflow: hidden;
@@ -60,7 +60,7 @@ p {
 }
 
 .imagem img {
-    width: 550px;
+    width: 666px;
     display: block;
     margin: 0 60px 0 0;
 }
