@@ -47,7 +47,7 @@ import { RouterLink } from 'vue-router'
   text-decoration: none;
   text-align: center;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 20px;
   padding: 18px;
   border-radius: 10px;
   transition: transform 0.15s ease;
