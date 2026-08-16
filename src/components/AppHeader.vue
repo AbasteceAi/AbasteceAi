@@ -5,12 +5,12 @@ import { RouterLink } from 'vue-router'
 <template>
   <header class="header">
     <div to="/" class="logo">
-      <img src="../../public/Logo 2.png" alt="Logo Abastece Aí" />
+      <img src="/public/logo.png" alt="Logo Abastece Aí" />
       <span>Abastece Aí</span>
     </div>
     <div class="nav-container">
     <nav class="nav">
-      <RouterLink to="/mapa">INÍCIO</RouterLink>
+      <RouterLink to="/">INÍCIO</RouterLink>
       <RouterLink to="/mapa">MAPA</RouterLink>
       <RouterLink to="/postos">POSTOS</RouterLink>
       <RouterLink to="/sobre-nos">SOBRE NÓS</RouterLink>

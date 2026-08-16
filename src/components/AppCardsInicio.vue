@@ -36,7 +36,7 @@
 main {
   width: 100%;
   background-color: #ffffff;
-  padding: 150px 0;
+  padding: 150px 0 100px 0;
 }
 
 .cards {
