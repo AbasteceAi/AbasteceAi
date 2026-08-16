@@ -1,15 +1,87 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
-*{   
-  font-family: "Source Sans 3", sans-serif; 
+*{
+  font-family: "Source Sans 3", sans-serif;
+  margin: 0;
+
+}
+html, body {
+  height: 100%;
+  margin: 0; /* remove margem padrão do navegador, evita scroll indesejado */
+}
+
+#app {
+  height: 100%;
 }
 h1,h2,h3,h4,h5,h6{
      font-family: "Inter", sans-serif;
+     margin: 0;
+     padding: 0;
 }
 p{
     margin: 0;
     padding: 0;
 }
-body {
-  margin: 0;
-  padding: 0;
+
+/*mapa*/
+.leaflet-popup-content-wrapper {
+  padding: 0px;
+  border-radius: 16px;
+  min-width: none;
+  overflow: hidden;
 }
+
+.leaflet-popup-content {
+  margin: 0px;
+ min-width: none;
+}
+
+.faixa-mapa {
+  height: 20px;
+  width: 100%;
+  background-color: #FEC12B;
+}
+.status{
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap; /* impede quebra de linha do texto */
+  width: fit-content;
+}
+.status.aberto span svg{
+    fill: #2F7E3A;
+    width: 10px;
+    margin: 0 auto;
+
+}
+.status.aberto{
+    color: #2F7E3A;
+    background-color:#89B66E ;
+    padding: 5px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    height: 20px;
+    width: fit-content;
+
+}
+.status.fechado span svg {
+     fill: #7E2F2F;
+    width: 10px;
+    margin: 0 auto;
+}
+.status.fechado{
+    color: #7E2F2F;
+    background-color:#B66E6E ;
+    padding: 5px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    height: 20px;
+}
+.cursor{
+    width: 25px;
+    height: 25px;
+}
+
