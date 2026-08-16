@@ -20,7 +20,7 @@ import { RouterLink } from 'vue-router'
   background-color: #FEC12B;
   padding: 20px;
   border-radius: 20px;
-  max-width: 1250px;
+  max-width: 1100px;
   margin: 40px auto;
   text-align: center;
 }
@@ -33,7 +33,7 @@ h1 {
 .mapaEstatico img {
   display: block;
   margin: 0 auto;
-  max-width: 100%;
+  max-width: 90%;
   border-radius: 14px;
   padding: 0 0 30px 0;
 }
