@@ -34,7 +34,7 @@ import { RouterLink } from 'vue-router'
   border-radius: 16px;
   padding: 30px;
   width: 400px;
-  height: 250px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   gap: 26px;
@@ -47,7 +47,7 @@ import { RouterLink } from 'vue-router'
   text-decoration: none;
   text-align: center;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 20px;
   padding: 18px;
   border-radius: 10px;
   transition: transform 0.15s ease;
@@ -59,7 +59,7 @@ import { RouterLink } from 'vue-router'
 
 .boneco {
   position: absolute;
-  bottom: -20px;
+  bottom: 0;
   width: 300px;
   z-index: 2;
 }
