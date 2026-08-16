@@ -19,3 +19,8 @@ p{
 router-link{
     text-decoration: none;
 }
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+}
