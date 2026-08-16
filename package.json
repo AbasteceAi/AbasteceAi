@@ -17,7 +17,7 @@
     "@supabase/supabase-js": "^2.111.0",
     "leaflet.markercluster": "^1.5.3",
     "vue": "^3.5.38",
-    "vue-router": "^5.1.0"
+    "vue-router": "^4.6.4"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
