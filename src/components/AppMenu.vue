@@ -10,7 +10,7 @@ import { RouterLink } from 'vue-router'
       <RouterLink to="/favoritos" class="botao">Acessar Favoritos</RouterLink>
     </div>
 
-    <img src="/boneco.png" alt="Boneco posto" class="boneco" />
+    <img src="/imgs/boneco.png" alt="Boneco posto" class="boneco" />
     <div class="card">
       <RouterLink to="/cadastro" class="botao">Cadastrar-se</RouterLink>
       <RouterLink to="/login" class="botao">Login</RouterLink>

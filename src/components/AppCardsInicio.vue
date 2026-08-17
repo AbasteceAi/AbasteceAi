@@ -6,7 +6,7 @@
     <section class="cards">
       <div class="card">
         <div class="icon">
-        <img src="/localizacao.png" alt="localizacao" />
+        <img src="/imgs/localizacao.png" alt="localizacao" />
         </div>
         <h2>Postos próximos de você</h2>
         <p>
@@ -15,7 +15,7 @@
       </div>
       <div class="card">
         <div class="icon">
-          <img src="/charts.png" alt="estatísticas" />
+          <img src="/imgs/charts.png" alt="estatísticas" />
         </div>
         <h2>Encontre os Melhores Preços</h2>
         <p>Veja o ranking dos postos com os combustíveis mais baratos em Joinville no momento.
@@ -23,7 +23,7 @@
       </div>
       <div class="card">
         <div class="icon">
-          <img src="/estrela.png" alt="estrela" />
+          <img src="/imgs/estrela.png" alt="estrela" />
         </div>
         <h2>Avaliados pela Comunidade</h2>
         <p>Postos bem avaliados por quem já abasteceu. Confira notas de atendimento, limpeza e qualidade do combustível.</p>
