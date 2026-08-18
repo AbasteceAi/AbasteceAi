@@ -3,7 +3,7 @@
 </script>
 
 <template>
-<body>        
+<body>
     <main>
     <section class="banner">
     <div class="texto">
@@ -12,7 +12,7 @@
     <p>Compare os preços em tempo real e economize toda semana.</p>
     </div>
     <div class="imagem">
-    <img src="/boneco.png" alt="boneco" />
+    <img src="/imgs/boneco.png" alt="boneco" />
     </div>
     </section>
     </main>
@@ -24,7 +24,7 @@
     width: 100%;
     height: 555px;
     position: relative;
-    background-image: url('banner2.png');
+    background-image: url('/imgs/banner2.png');
     background-size: cover;
     background-position: center;
     overflow: hidden;

@@ -6,7 +6,7 @@ import { RouterLink } from 'vue-router'
   <main>
     <RouterLink to="/mapa" class="mapaEstatico">
       <h1>Acesse os postos mais próximos de você</h1>
-      <img src="/public/mapaEstático.png" alt="Mapa Estático" />
+      <img src="/imgs/mapaEstático.png" alt="Mapa Estático" />
     </RouterLink>
   </main>
 </template>

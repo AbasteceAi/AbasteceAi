@@ -5,7 +5,7 @@ import { RouterLink } from 'vue-router'
 <template>
   <header class="header">
     <div to="/" class="logo">
-      <img src="/public/logo.png" alt="Logo Abastece Aí" />
+      <img src="/imgs/logo.png" alt="Logo Abastece Aí" />
       <span>Abastece Aí</span>
     </div>
     <div class="nav-container">

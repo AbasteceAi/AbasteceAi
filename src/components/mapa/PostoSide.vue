@@ -52,7 +52,7 @@ Created by potrace 1.15, written by Peter Selinger 2001-2017
          </div>
        </div>
        <div v-if="precoDoTipo()" >
-       <div>
+       <div class="precoS">
          <p>{{ precoDoTipo().tipo_combustivel }}</p>
          <h1><span>R$</span> {{ precoDoTipo().preco_litro.toFixed(2) }}</h1>
          </div>
@@ -67,44 +67,47 @@ Created by potrace 1.15, written by Peter Selinger 2001-2017
   background-color: #FFF;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  width: 90%;
+  width: 95%;
   padding-top: 0;
-  margin: 20px;
+  margin: 10px;
   padding-bottom: 5px;
 }
 .faixa{
     display: flex;
     gap: 5px;
     background-color: #FEC12B;
-    height: 20px;
+    height: 40px;
     margin-top: 0;
     padding: 10px;
     width: 100%;
 }
 .faixa p {
     margin: 0;
-    font-size: 15px;
+    font-size: 14px;
 }
 .cont{
     display: flex;
     gap: 10px;
-    align-items: center;
+    align-items: flex-start;
+    padding: 10px;
 }
 .img{
     width: 60px;
     height: 60px;
+    flex-shrink: 0;
 }
 .infoN{
-    border-right: 1px solid #002492;
-    margin-right: 10px;
-    padding-right: 10px;
+    border-right: 2px solid #002492;
+
+    flex: 1;
+    min-width: 0;
 }
 .infoN div {
     display: flex;
     gap: 10px;
 }
 .nome{
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   color: #002492;
 
 }
@@ -120,4 +123,5 @@ Created by potrace 1.15, written by Peter Selinger 2001-2017
     font-size: 15px;
     font-weight: bold;
 }
+
 </style>

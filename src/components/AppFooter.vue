@@ -6,7 +6,7 @@ import { RouterLink } from 'vue-router'
   <footer>
     <div class="footer">
       <div class="logo">
-        <img src="/logoMaior.png" alt="logo" />
+        <img src="/imgs/logoMaior.png" alt="logo" />
         <span>Abastece Aí</span>
       </div>
       <div class="links">
@@ -32,7 +32,7 @@ footer {
   display: flex;
   justify-content: left;
   padding: 20px;
-  background-image: url('/fundoFooter.png');
+  background-image: url('/imgs/fundoFooter.png');
   background-size: cover;
   background-position: top;
   background-repeat: no-repeat;
