@@ -5,12 +5,12 @@ import { RouterLink } from 'vue-router'
 <template>
   <header class="header">
     <div to="/" class="logo">
-      <img src="../../public/Logo 2.png" alt="Logo Abastece Aí" />
+      <img src="/imgs/logo.png" alt="Logo Abastece Aí" />
       <span>Abastece Aí</span>
     </div>
     <div class="nav-container">
     <nav class="nav">
-      <RouterLink to="/mapa">INÍCIO</RouterLink>
+      <RouterLink to="/">INÍCIO</RouterLink>
       <RouterLink to="/mapa">MAPA</RouterLink>
       <RouterLink to="/postos">POSTOS</RouterLink>
       <RouterLink to="/sobre-nos">SOBRE NÓS</RouterLink>
@@ -67,7 +67,7 @@ import { RouterLink } from 'vue-router'
 <style scoped>
 .header {
   width: 100%;
-  height: 66px;
+  height: 80px;
   margin: 0;
   padding: 0 20px;
   box-sizing: border-box;
@@ -87,14 +87,13 @@ import { RouterLink } from 'vue-router'
 }
 
 .logo img {
-  width: 38px;
-  height: 38px;
+  width: 42px;
   object-fit: contain;
 }
 
 .logo span {
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 650;
   white-space: nowrap;
 }
 
@@ -108,7 +107,7 @@ import { RouterLink } from 'vue-router'
 
 .nav a {
   min-width: 94px;
-  height: 26px;
+  height: 32px;
   padding: 0 15px;
   box-sizing: border-box;
   border: 1px solid #fec12b;
@@ -117,7 +116,7 @@ import { RouterLink } from 'vue-router'
   justify-content: center;
   align-items: center;
   color: white;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   text-decoration: none;
   transition: all 0.2s ease;
@@ -135,7 +134,7 @@ import { RouterLink } from 'vue-router'
   justify-content: right;
 }
 .pesquisa {
-  height: 26px;
+  height: 34px;
   flex: 1;
   max-width: 230px;
   min-width: 150px;
@@ -153,7 +152,7 @@ import { RouterLink } from 'vue-router'
   outline: none;
   background: transparent;
   color: #334582;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
 }
 
@@ -163,8 +162,8 @@ import { RouterLink } from 'vue-router'
 }
 
 .search-icon {
-  width: 15px;
-  height: 15px;
+  width: 18px;
+  height: 18px;
   margin-right: 5px;
   flex-shrink: 0;
 }
