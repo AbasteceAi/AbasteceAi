@@ -14,6 +14,11 @@ const router = createRouter({
       path: '/mapa',
       name: 'mapa',
       component: MapaView
+    },
+    {
+      path: '/favoritos',
+      name: 'favoritos',
+      component: () => import('@/views/FavoritosView.vue')
     }
     
   ]
