@@ -1,9 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import HomeView from '../views/HomeView.vue'
+import NotFound from '../views/ErrorView.vue'
 import MapaView from '../views/MapaView.vue'
 import PostosView from '../views/PostosView.vue'
 
+import { usuarioAtual } from '@/services/auth.js'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
 
@@ -15,8 +17,8 @@ const router = createRouter({
     },
 
     {
-      path: '/mapa',
-      name: 'mapa',
+      path: '/Mapa',
+      name: 'Mapa',
       component: MapaView
     },
 
@@ -28,4 +30,27 @@ const router = createRouter({
   ]
 })
 
+export default router
+    {
+      path: '/:pathMatch(.*)*', 
+      name: 'NotFound',
+      component: NotFound 
+
+    }
+
+  ]
+})
+router.beforeEach(async (to, from, next) => {
+  const rotasProtegidas = ['/perfil', '/favoritos']
+
+  if (rotasProtegidas.includes(to.path)) {
+    const user = await usuarioAtual()
+    if (!user) {
+      next('/login')
+      return
+    }
+  }
+
+  next()
+})
 export default router
