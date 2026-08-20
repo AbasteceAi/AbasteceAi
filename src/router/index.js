@@ -26,20 +26,18 @@ const router = createRouter({
       path: '/postos',
       name: 'postos',
       component: PostosView
-    }
-  ]
-})
-
-export default router
+    },
     {
-      path: '/:pathMatch(.*)*', 
+      path: '/:pathMatch(.*)*',
       name: 'NotFound',
-      component: NotFound 
+      component: NotFound
 
     }
 
   ]
 })
+
+
 router.beforeEach(async (to, from, next) => {
   const rotasProtegidas = ['/perfil', '/favoritos']
 
@@ -54,3 +52,4 @@ router.beforeEach(async (to, from, next) => {
   next()
 })
 export default router
+
