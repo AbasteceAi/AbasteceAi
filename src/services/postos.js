@@ -15,6 +15,11 @@ export async function buscarPostos() {
     ...posto,
     aberto:estaAberto(posto.horario)
 }))}
+export function extrairBairro(endereco) {
+  // pega o texto entre " - " e ", Joinville"
+  const match = endereco.match(/-\s*([^,]+),\s*Joinville/i)
+  return match ? match[1].trim() : null
+}
 
 export function obterLoc() {
   return new Promise((resolve, reject) => {
