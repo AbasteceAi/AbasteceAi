@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import NotFound from '../views/ErrorView.vue'
 import MapaView from '../views/MapaView.vue'
 import { usuarioAtual } from '@/services/auth.js'
 const router = createRouter({
@@ -11,9 +12,15 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/mapa',
-      name: 'mapa',
+      path: '/Mapa',
+      name: 'Mapa',
       component: MapaView
+    },
+    {
+      path: '/:pathMatch(.*)*', 
+      name: 'NotFound',
+      component: NotFound 
+
     }
 
   ]
