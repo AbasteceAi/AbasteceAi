@@ -51,7 +51,7 @@ onMounted(carregar)
 <div class="grid">
     <section class="side">
 <div class="filtros">
-<FiltroNome v-model="buscaNome"/>
+<FiltroNome v-model="buscaNome" class="nomeF"/>
 <FiltroCombustivel v-model="combustivelSelecionado" class="filtroComb"/>
 </div>
       <div v-if="carregando" > Carregando Postos ...</div>
@@ -101,6 +101,13 @@ main{
   gap: 15px;
   align-items: center;
   margin: 5px;
-  
+}
+.nomeF{
+  position: relative;
+  width: 100%;
+}
+.filtroComb{
+  position: absolute;
+  text-align: end;
 }
 </style>

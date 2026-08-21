@@ -21,7 +21,7 @@ function selecionar(tipo){
     <svg class="svg" v-if="!modelValue" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M4 4H20L14 12V19L10 21V12L4 4Z" fill="#002492"/>
       </svg>
-     <div v-if="modelValue"> {{ modelValue }}</div>
+     <div v-if="modelValue"> {{ modelValue.charAt(0).toUpperCase()+ modelValue.slice(1) }}</div>
     </button>
     <ul v-if="mostrarFiltro" class="lista">
     <li v-for="tipo in opcoes" :key="tipo" @click="selecionar(tipo)" class="opcao">
@@ -33,7 +33,24 @@ function selecionar(tipo){
 
 <style scoped>
 .svg{
-  width: 40px;
+  width: 30px;
+  height: 30px;
+  background-color: #FEC12B;
+  border: none;
+}
+.btn-filtro{
+  border: none;
+  background-color: #FEC12B ;
+  padding: 5px;
   height: 40px;
+  border-radius: 5px;
+}
+.lista{
+  background-color: #FEC12B;
+  list-style: none;
+  border-radius: 2px;
+  margin-top: -4px;
+  color: #002492;
+  padding: 8px;
 }
 </style>
