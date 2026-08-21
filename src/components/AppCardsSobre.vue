@@ -4,7 +4,6 @@ defineProps({
     funcao: String,
     descricao: String,
     imagem: String,
-
     instagram: String,
     github: String,
     email: String,
@@ -71,7 +70,6 @@ defineProps({
 
 .cardSobre {
    width: 100%;
-  max-width: 378px;
   height: 150px;
   background: #394f91;
   border-radius: 18px;
@@ -132,7 +130,7 @@ defineProps({
   color: white;
   text-decoration: none;
 
-  font-size: 13px;
+  font-size: 25px;
   font-weight: 500;
 
   transition: opacity 0.2s ease;

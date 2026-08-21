@@ -9,8 +9,9 @@ const equipe = [
     imagem: '/imgs/bruna.png',
     instagram: "https://www.instagram.com/brunasiebert/",
     github: "https://github.com/brunasiebertm",
-    email: "emaildabrun@exemplo.com",
-    linkedin: "https://www.linkedin.com/in/USUARIO_BRUNA"
+    linkedin: "https://www.linkedin.com/in/bruna-siebert-98b68a360/",
+    email: "bruna.siebert@gmail.com"
+    
   },
 
   {
@@ -20,8 +21,9 @@ const equipe = [
     imagem: '/imgs/ester.png',
     instagram: "https://www.instagram.com/eester.sz/",
     github: "https://github.com/esterdesouza",
-    email: "estersv18@gmail.com",
-    linkedin: "https://www.linkedin.com/in/USUARIO_BRUNA"
+    linkedin: "https://www.linkedin.com/in/ester-souza-68b83a35a/",
+    email: "estersv18@gmail.com"
+    
   },
   {
     nome: 'Giulia Côrrea',
@@ -30,8 +32,9 @@ const equipe = [
     imagem: '/imgs/giulia.png',
     instagram: "https://www.instagram.com/giiubws/",
     github: "https://github.com/giuliamcorrea",
-    email: "emaildabrun@exemplo.com",
-    linkedin: "https://www.linkedin.com/in/USUARIO_BRUNA"
+    linkedin: "https://www.linkedin.com/in/giulia-marcos-corr%C3%AAa-93168a360/",
+    email: "marcoscorreagiulia@gmail.com"
+    
   },
   {
     nome: 'Halicya Recalde',
@@ -40,28 +43,31 @@ const equipe = [
     imagem: '/imgs/halicya.png',
     instagram: "https://www.instagram.com/hwskira/",
     github: "https://github.com/halicyafranca",
-    email: "emaildabrun@exemplo.com",
-    linkedin: "https://www.linkedin.com/in/USUARIO_BRUNA"
+    linkedin: "https://www.linkedin.com/in/halicya-gabrielly-4b65a4365/",
+    email: "halicyagabrielly@gmail.com"
+    
   },
   {
-    nome: 'Laura Werner',
+    nome: 'Laura Luciano',
     funcao: 'Desenvolvedora',
     descricao: '.',
     imagem: '/imgs/laura.png',
     instagram: "https://www.instagram.com/itzgirrl/",
     github: "https://github.com/lauraluciano",
-    email: "emaildabrun@exemplo.com",
-    linkedin: "https://www.linkedin.com/in/USUARIO_BRUNA"
+    linkedin: "https://www.linkedin.com/in/laura-werner-516738360/",
+    email: "lauralluciano25@gmail.com"
+    
   },
   {
     nome: 'Tiago Perin',
-    funcao: 'Desenvolvedora',
+    funcao: 'Desenvolvedor',
     descricao: '.',
     imagem: '/imgs/tiago.png',
     instagram: "https://www.instagram.com/tiagomperin_/",
     github: "https://github.com/TiagoMPerin",
-    email: "emaildabrun@exemplo.com",
-    linkedin: "https://www.linkedin.com/in/USUARIO_BRUNA"
+    linkedin: "https://www.linkedin.com/in/tiago-perin-76b687360/",
+    email: "tiagomartinsperin@gmail.com"
+    
   },
 ]
 </script>
@@ -115,6 +121,10 @@ const equipe = [
           :funcao="pessoa.funcao"
           :descricao="pessoa.descricao"
           :imagem="pessoa.imagem"
+          :instagram="pessoa.instagram"
+          :github="pessoa.github"
+          :email="pessoa.email"
+          :linkedin="pessoa.linkedin"
         />
       </div>
     </section>
@@ -217,12 +227,12 @@ main {
   color: #272626;
 }
 .cardEquipe {
-  width: 85%;
-  max-width: 800px;
+  width: 100%;
   margin: 40px auto;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 30px 20px;
+  justify-items: center;
 }
 
 </style>
