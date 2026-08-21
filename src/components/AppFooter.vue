@@ -36,7 +36,7 @@ footer {
   background-size: cover;
   background-position: top;
   background-repeat: no-repeat;
-  min-height: 380px;
+  height: 300px;
   width: 100%;
 }
 
@@ -57,14 +57,14 @@ footer {
 }
 
 .logo img {
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
 }
 
 .logo span {
   color: #fff;
   font-weight: 700;
-  font-size: 30px;
+  font-size: 24px;
 }
 
 .links {
@@ -75,7 +75,7 @@ footer {
 }
 
 .links h1 {
-  font-size: 30px;
+  font-size: 22px;
   color: #000000;
   margin-bottom: 4px;
   border-bottom: 6px solid #1F2B54;
@@ -86,7 +86,7 @@ footer {
 .links a {
   color: #000000;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
 }
 
