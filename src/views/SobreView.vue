@@ -7,6 +7,10 @@ const equipe = [
     funcao: 'Desenvolvedora',
     descricao: '.',
     imagem: '/imgs/bruna.png',
+    instagram: "https://www.instagram.com/brunasiebert/",
+    github: "https://github.com/brunasiebertm",
+    email: "emaildabrun@exemplo.com",
+    linkedin: "https://www.linkedin.com/in/USUARIO_BRUNA"
   },
 
   {
@@ -14,30 +18,50 @@ const equipe = [
     funcao: 'Desenvolvedora',
     descricao: '.',
     imagem: '/imgs/ester.png',
+    instagram: "https://www.instagram.com/eester.sz/",
+    github: "https://github.com/esterdesouza",
+    email: "estersv18@gmail.com",
+    linkedin: "https://www.linkedin.com/in/USUARIO_BRUNA"
   },
   {
     nome: 'Giulia Côrrea',
     funcao: 'Desenvolvedora',
     descricao: '.',
     imagem: '/imgs/giulia.png',
+    instagram: "https://www.instagram.com/giiubws/",
+    github: "https://github.com/giuliamcorrea",
+    email: "emaildabrun@exemplo.com",
+    linkedin: "https://www.linkedin.com/in/USUARIO_BRUNA"
   },
   {
     nome: 'Halicya Recalde',
     funcao: 'Desenvolvedora',
     descricao: '.',
     imagem: '/imgs/halicya.png',
+    instagram: "https://www.instagram.com/hwskira/",
+    github: "https://github.com/halicyafranca",
+    email: "emaildabrun@exemplo.com",
+    linkedin: "https://www.linkedin.com/in/USUARIO_BRUNA"
   },
   {
     nome: 'Laura Werner',
     funcao: 'Desenvolvedora',
     descricao: '.',
     imagem: '/imgs/laura.png',
+    instagram: "https://www.instagram.com/itzgirrl/",
+    github: "https://github.com/lauraluciano",
+    email: "emaildabrun@exemplo.com",
+    linkedin: "https://www.linkedin.com/in/USUARIO_BRUNA"
   },
   {
     nome: 'Tiago Perin',
     funcao: 'Desenvolvedora',
     descricao: '.',
     imagem: '/imgs/tiago.png',
+    instagram: "https://www.instagram.com/tiagomperin_/",
+    github: "https://github.com/TiagoMPerin",
+    email: "emaildabrun@exemplo.com",
+    linkedin: "https://www.linkedin.com/in/USUARIO_BRUNA"
   },
 ]
 </script>
@@ -139,7 +163,7 @@ main {
 .texto-sobre p {
   font-size: 20px;
   line-height: 1.5;
-  color: #555;
+  color: #2d2c2c;
   margin-bottom: 8px;
 }
 .imagem-mascote {
@@ -152,7 +176,7 @@ main {
   max-width: 300px;
 }
 .objetivo {
-  background: #344b91;
+  background: #334582;
   color: white;
   text-align: center;
   border-radius: 22px;
@@ -180,13 +204,25 @@ main {
   margin-bottom: 25px;
   color: #334582;
 }
+.equipe p{
+  text-align: right;
+  font-size: 20px;
+}
 .descricao {
   text-align: center;
   font-size: 16px;
   line-height: 1.5;
   max-width: 800px;
   margin: 0 auto 45px;
-  color: #555;
+  color: #272626;
+}
+.cardEquipe {
+  width: 85%;
+  max-width: 800px;
+  margin: 40px auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px 20px;
 }
 
 </style>

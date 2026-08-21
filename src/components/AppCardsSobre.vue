@@ -3,7 +3,12 @@ defineProps({
     nome: String,
     funcao: String,
     descricao: String,
-    imagem: String
+    imagem: String,
+
+    instagram: String,
+    github: String,
+    email: String,
+    linkedin: String
 })
 </script>
 
@@ -24,11 +29,39 @@ defineProps({
         <p>{{ descricao }}</p>
 
          <div class="redes">
-          <a href="#">insta</a>
-          <a href="#">github</a>
-          <a href="#">gmail</a>
-          <a href="#">linkedin</a>
-         </div>
+
+  <a 
+    :href="instagram" 
+    target="_blank"
+    aria-label="Instagram"
+  >
+    <font-awesome-icon :icon="['fab', 'instagram']" />
+  </a>
+
+  <a 
+    :href="github" 
+    target="_blank"
+    aria-label="GitHub"
+  >
+    <font-awesome-icon :icon="['fab', 'github']" />
+  </a>
+
+  <a 
+    :href="`mailto:${email}`"
+    aria-label="E-mail"
+  >
+    <font-awesome-icon :icon="['fas', 'envelope']" />
+  </a>
+
+  <a 
+    :href="linkedin" 
+    target="_blank"
+    aria-label="LinkedIn"
+  >
+    <font-awesome-icon :icon="['fab', 'linkedin']" />
+  </a>
+
+</div>
          
        </div>
     </div>
@@ -55,7 +88,7 @@ defineProps({
   transform: translateY(-3px);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
-..foto {
+.foto {
   width: 86px;
   height: 86px;
   min-width: 86px;
