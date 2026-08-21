@@ -12,9 +12,9 @@ import { RouterLink } from 'vue-router'
 
     <img src="/imgs/bonecoBracosCortado.png" alt="Boneco posto" class="boneco" />
     <div class="card">
+      <RouterLink to="/perfil" class="botao">Acessar Perfil</RouterLink>
       <RouterLink to="/cadastro" class="botao">Cadastrar-se</RouterLink>
       <RouterLink to="/login" class="botao">Login</RouterLink>
-      <RouterLink to="/suporte" class="botao">Suporte</RouterLink>
     </div>
   </section>
 </template>
