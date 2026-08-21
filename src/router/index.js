@@ -4,6 +4,7 @@ import HomeView from '../views/HomeView.vue'
 import NotFound from '../views/ErrorView.vue'
 import MapaView from '../views/MapaView.vue'
 import PostosView from '../views/PostosView.vue'
+import PostoIndView from '@/views/PostoIndView.vue'
 
 import { usuarioAtual } from '@/services/auth.js'
 const router = createRouter({
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/postos',
       name: 'postos',
       component: PostosView
+    },
+    {
+      path: '/posto/:id',
+      name:PostoIndView,
+      component:PostoIndView
     },
     {
       path: '/:pathMatch(.*)*',

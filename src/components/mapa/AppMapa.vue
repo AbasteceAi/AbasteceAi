@@ -1,14 +1,29 @@
 <script setup>
-import {ref, onMounted} from 'vue'
+import {ref, onMounted, computed} from 'vue'
 import { buscarPostos, obterLoc, ordenarPorDistancia } from '@/services/postos';
 import PostoSide from './PostoSide.vue';
 import LMap from './LMap.vue';
 import FiltroCombustivel from './FiltroCombustivel.vue';
-
+import FiltroNome from './FiltroNome.vue';
 const postos = ref([])
 const carregando = ref(true)
-const combustivelSelecionado = ref('gasolina comum')
+const combustivelSelecionado = ref('')
 const postoSel = ref(null)
+const buscaNome = ref('')
+
+const postosFiltrados = computed(() => {
+  let resultado = postos.value;
+  if( buscaNome.value.trim()){
+    const termo = buscaNome.value.toLowerCase()
+    resultado = resultado.filter(p => p.nome.toLowerCase().includes(termo))
+  }
+  if (combustivelSelecionado.value) {
+  resultado = resultado.filter(p =>
+    p.precos?.some(preco => preco.tipo_combustivel.toLowerCase() === combustivelSelecionado.value.toLowerCase()))
+  }
+
+  return resultado
+})
 
 async function carregar() {
   const dados = await buscarPostos()
@@ -31,14 +46,19 @@ onMounted(carregar)
     <main>
     <div class="text">
 <h1>Postos de Joinville</h1>
-<FiltroCombustivel v-model="combustivelSelecionado" />
+
 </div>
 <div class="grid">
     <section class="side">
+<div class="filtros">
+<FiltroNome v-model="buscaNome"/>
+<FiltroCombustivel v-model="combustivelSelecionado" class="filtroComb"/>
+</div>
       <div v-if="carregando" > Carregando Postos ...</div>
+      <div v-else-if="postosFiltrados.length === 0"> Posto não encontrado</div>
       <div v-else>
 
-    <PostoSide v-for="posto in postos"
+    <PostoSide v-for="posto in postosFiltrados"
       :key="posto.id"
       :posto="posto"
       :combustivel-sel="combustivelSelecionado"
@@ -47,7 +67,7 @@ onMounted(carregar)
       </div>
 </section>
 <section>
- <LMap :postos="postos" :combustivel-sel="combustivelSelecionado" :posto-sel="postoSel"/>
+ <LMap :postos="postosFiltrados" :combustivel-sel="combustivelSelecionado" :posto-sel="postoSel"/>
 </section>
 </div>
       </main>
@@ -76,5 +96,11 @@ main{
     font-size: 1.8rem;
     padding: 10px;
   }
-
+.filtros {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin: 5px;
+  
+}
 </style>

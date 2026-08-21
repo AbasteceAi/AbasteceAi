@@ -3,37 +3,37 @@ import {ref, onMounted} from 'vue';
 import { buscarTipoCombustivel } from '@/services/postos';
 
 defineProps(['modelValue'])
-defineEmits(['update:modelValue'])
-
+const emit = defineEmits(['update:modelValue'])
+const mostrarFiltro = ref(false)
 const opcoes = ref([])
 
 onMounted(async () =>{
   opcoes.value = await buscarTipoCombustivel()
 })
+function selecionar(tipo){
+  emit('update:modelValue',tipo)
+  mostrarFiltro.value = false
+}
 </script>
 <template>
 <div class="filtro-combustivel">
-    <label>Combustível:</label>
-    <select
-      :value="modelValue"
-      @change="$emit('update:modelValue', $event.target.value)"
-    >
-      <option v-for="tipo in opcoes" :key="tipo" :value="tipo">
-        {{ tipo.charAt(0).toUpperCase() + tipo.slice(1) }}
-      </option>
-    </select>
-  </div>
+    <button class="btn-filtro" @click="mostrarFiltro = !mostrarFiltro">
+    <svg class="svg" v-if="!modelValue" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 4H20L14 12V19L10 21V12L4 4Z" fill="#002492"/>
+      </svg>
+     <div v-if="modelValue"> {{ modelValue }}</div>
+    </button>
+    <ul v-if="mostrarFiltro" class="lista">
+    <li v-for="tipo in opcoes" :key="tipo" @click="selecionar(tipo)" class="opcao">
+     {{ tipo.charAt(0).toUpperCase() + tipo.slice(1) }}
+    </li>
+    </ul>
+</div>
 </template>
+
 <style scoped>
-.filtro-combustivel {
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.filtro-combustivel select {
-  padding: 6px 12px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+.svg{
+  width: 40px;
+  height: 40px;
 }
 </style>

@@ -2,7 +2,8 @@
 const props =defineProps(['posto', 'combustivelSel']);
 const emit = defineEmits(['clique'])
 function precoDoTipo() {
-  return props.posto.precos?.find(p => p.tipo_combustivel === props.combustivelSel)
+  if (!props.combustivelSel) return props.posto.precos?.[0]
+  return props.posto.precos?.find(p => p.tipo_combustivel.toLowerCase() === props.combustivelSel.toLowerCase())
 }
 </script>
 <template>
@@ -53,7 +54,7 @@ Created by potrace 1.15, written by Peter Selinger 2001-2017
        </div>
        <div v-if="precoDoTipo()" >
        <div class="precoS">
-         <p>{{ precoDoTipo().tipo_combustivel }}</p>
+         <p>{{ precoDoTipo().tipo_combustivel.charAt(0).toUpperCase() + precoDoTipo().tipo_combustivel.slice(1)  }}</p>
          <h1><span>R$</span> {{ precoDoTipo().preco_litro.toFixed(2) }}</h1>
          </div>
 

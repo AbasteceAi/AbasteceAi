@@ -1,23 +1,48 @@
 <script setup>
-import { ref } from 'vue'
-import AppHeader from '../components/AppHeader.vue'
-import AppFooter from '../components/AppFooter.vue'
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import { supabase } from '@/data/supabaseClient.js'
 import PostoBanner from '@/components/postos/PostoBanner.vue'
 import PostoServicos from '@/components/postos/PostoServicos.vue'
 import PostoAvaliacao from '@/components/postos/PostoAvaliacao.vue'
 
  const route = useRoute()
- const posto = ref(await buscarPostoPorId(route.params.id))
-
+ const posto = ref(null)
+const carregando = ref(true)
 
 const favorito = ref(false)
 function alternarFavorito() {
   favorito.value = !favorito.value
 }
-
 function irParaAvaliar() {
 }
-//so pra testar
+
+async function carregarPosto() {
+  const id = route.params.id
+
+  const { data, error } = await supabase
+    .from('postos')
+    .select(`*, avaliacoes (nota, comentario), precos (tipo_combustivel, preco_litro)`)
+    .eq('id', id)
+    .single()
+
+  if (error) {
+    console.error(error)
+  }else { const notas = data.avaliacoes?.map(a => a.nota) ?? []
+    const media = notas.length > 0
+      ? notas.reduce((soma, n) => soma + n, 0) / notas.length
+      : null
+
+    posto.value = {
+      ...data,
+      mediaAvaliacao: media,
+      totalAvaliacoes: notas.length
+    }
+  }
+  carregando.value = false
+}
+
+onMounted(carregarPosto)
 const avaliacoes = ref([
   {
     id: 1,
@@ -25,93 +50,33 @@ const avaliacoes = ref([
     qtdAvaliacoes: 23,
     data: '25/02/26',
     nota: 5,
-    comentario:
-      'Melhor preço de etanol que encontrei em Joinville essa semana! Já indiquei para minha família e colegas de trabalho. A loja de conveniência também é bem abastecida.',
+    comentario: 'Melhor preço de etanol que encontrei em Joinville essa semana! Já indiquei para minha família e colegas de trabalho. A loja de conveniência também é bem abastecida.',
     util: 12,
     marcouUtil: false,
     iniciais: 'BS',
     cor: '#334582',
   },
-  {
-    id: 2,
-    nome: 'Giulia Corrêa',
-    qtdAvaliacoes: 12,
-    data: '20/03/26',
-    nota: 5,
-    comentario:
-      'Abasteci aqui na sexta à noite e o preço da gasolina estava de acordo com o site. Atendimento rápido e o funcionário foi bem educado. Vou voltar sempre.',
-    util: 8,
-    marcouUtil: false,
-    iniciais: 'GC',
-    cor: '#FEC12B',
-  },
-  {
-    id: 3,
-    nome: 'Ester Viana',
-    qtdAvaliacoes: 7,
-    data: '16/04/26',
-    nota: 5,
-    comentario:
-      'Posto organizado e bem sinalizado. O atendente me avisou que o diesel S-10 estava em falta e me indicou outro posto próximo, achei isso muito honesto. Nota alta pelo atendimento.',
-    util: 7,
-    marcouUtil: false,
-    iniciais: 'EV',
-    cor: '#1e326b',
-  },
-  {
-    id: 4,
-    nome: 'Halicya Recalde',
-    qtdAvaliacoes: 6,
-    data: '20/04/26',
-    nota: 3,
-    comentario:
-      'Preço ok, nem o mais barato nem o mais caro da região. O atendimento foi normal, sem nada de especial. A bomba de ar do pneu estava com defeito no dia que fui, o que foi chato.',
-    util: 6,
-    marcouUtil: false,
-    iniciais: 'HR',
-    cor: '#002492',
-  },
-  {
-    id: 5,
-    nome: 'Rafael Nunes',
-    qtdAvaliacoes: 15,
-    data: '02/05/26',
-    nota: 4,
-    comentario:
-      'Boa localização e fácil acesso saindo da BR. Fila andou rápido mesmo em horário de pico. Voltaria a abastecer aqui numa próxima viagem.',
-    util: 4,
-    marcouUtil: false,
-    iniciais: 'RN',
-    cor: '#334582',
-  },
-  {
-    id: 6,
-    nome: 'João Pedro Alves',
-    qtdAvaliacoes: 3,
-    data: '10/05/26',
-    nota: 4,
-    comentario:
-      'Banheiro limpo, o que já é diferencial em posto de estrada. Cafeteria com preço justo e o café estava bem quentinho.',
-    util: 2,
-    marcouUtil: false,
-    iniciais: 'JA',
-    cor: '#FEC12B',
-  },
+  // ...resto dos dados de teste
 ])
 </script>
 
 <template>
-  <AppHeader />
+
 
   <main class="posto-page">
-    <PostoHero :posto="posto" :favorito="favorito" @favoritar="alternarFavorito" @avaliar="irParaAvaliar" />
+  <div v-if="carregando">
+    carregando
+  </div>
+  <div  v-else-if="posto">
+   <PostoBanner :posto="posto" :favorito="favorito" @favoritar="alternarFavorito" @avaliar="irParaAvaliar" />
 
     <PostoServicos />
 
-    <PostoAvaliacoes :avaliacoes="avaliacoes" />
+    <PostoAvaliacao :avaliacoes="avaliacoes" />
+  </div>
+
   </main>
 
-  <AppFooter />
 </template>
 
 <style scoped>

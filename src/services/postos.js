@@ -49,5 +49,5 @@ export async function buscarTipoCombustivel(){
     console.error(error)
     return []
   }
-  return [...new Set(data.map(p => p.tipo_combustivel))]
+  return [...new Set(data.map(p => p.tipo_combustivel.toLowerCase()))]
 }
