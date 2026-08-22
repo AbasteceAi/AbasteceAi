@@ -140,7 +140,7 @@
   margin-bottom: 20px;
   box-sizing: border-box;
 
-  border: none;
+  border: 2px solid #f5c400;
   border-radius: 6px;
 
   background-color: #ffffff;
@@ -149,7 +149,7 @@
 }
 
 .login-content input::placeholder {
-  color: #9a9a9a;
+  color: #f5c400;
 }
 
 .login-content input:focus {
