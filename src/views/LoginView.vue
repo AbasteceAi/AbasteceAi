@@ -16,7 +16,7 @@
        <div class="login-title">
     <img
         class="login-logo"
-          src="/imgs/logo.png"
+          src="/imgs/logoMaior.png"
         alt="Logo do AbasteceAí"
       />
 
@@ -101,10 +101,11 @@
   gap: 12px;
   width: 100%;
   margin-bottom: 35px;
+  max-width: 380px;
 }
 
 .login-logo {
-  width: 65px;
+  width: 80px;
   height: auto;
   object-fit: contain;
   flex-shrink: 0;
@@ -113,10 +114,9 @@
 .login-content h1 {
   margin: 0;
   color: #f5c400;
-  font-size: 24px;
+  font-size: 30px;
   font-weight: 700;
   text-align: left;
-  white-space: nowrap;
 }
 
 .login-content form {
@@ -157,9 +157,9 @@
 }
 
 .login-content button {
-  width: 100%;
+  width: 50%;
   height: 48px;
-  margin-top: 5px;
+  margin: 5px auto 0;
 
   border: none;
   border-radius: 7px;
@@ -178,6 +178,8 @@
 }
 
 .login-content p {
+  width: 100%;
+  max-width: 380px;
   margin-top: 25px;
   color: #ffffff;
   font-size: 14px;
