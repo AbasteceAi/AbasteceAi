@@ -36,7 +36,7 @@ async function carregar() {
     postos.value = dados
   }
 
-  carregando.value = false
+carregando.value = false
 }
 
 onMounted(carregar)
@@ -54,7 +54,7 @@ onMounted(carregar)
 <FiltroNome v-model="buscaNome" class="nomeF"/>
 <FiltroCombustivel v-model="combustivelSelecionado" class="filtroComb"/>
 </div>
-      <div v-if="carregando" > Carregando Postos ...</div>
+      <div v-if="carregando"  ><img src="/imgs/perso.gif" class="gif"  alt=""></div>
       <div v-else-if="postosFiltrados.length === 0"> Posto não encontrado</div>
       <div v-else>
 
@@ -100,14 +100,24 @@ main{
   display: flex;
   gap: 15px;
   align-items: center;
-  margin: 5px;
+  margin: 15px;
+  position: relative;
 }
 .nomeF{
-  position: relative;
-  width: 100%;
+  width: 80%;
 }
 .filtroComb{
   position: absolute;
   text-align: end;
+ 
+  top: 0;
+ right: 0;
 }
+.gif{
+  width: 80%;
+  display: flex;
+ align-items: center;
+ justify-content: center;
+ margin: 0 auto;
+  }
 </style>

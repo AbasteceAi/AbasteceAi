@@ -42,7 +42,7 @@ watch(() => props.postos, () => {
 <template>
   <section class="postos">
     <p v-if="props.carregando" class="carregando">
-      Carregando postos...
+     <img src="/imgs/perso.gif" class="gif">
     </p>
     <div v-else class="postos-grid">
      <div v-for="posto in postosVisiveis"
@@ -298,7 +298,13 @@ height: auto;
   background: #002d82;
   transform: translateY(-1px);
 }
-
+.gif{
+  width: 50%;
+  display: flex;
+ align-items: center;
+ justify-content: center;
+ margin: 0 auto;
+  }
 @media (max-width: 800px) {
 
   .postos-grid {
