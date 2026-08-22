@@ -16,7 +16,7 @@ const emit = defineEmits(['favoritar', 'avaliar'])
 <template>
   <section class="hero">
     <div class="hero-media">
-      <img :src="posto.fotoUrl" alt="" class="logo-posto" />
+      <img :src="posto.foto_url" alt="" class="logo-posto" />
     </div>
 
     <div class="hero-info">
@@ -48,14 +48,14 @@ const emit = defineEmits(['favoritar', 'avaliar'])
             v-for="n in 5"
             :key="n"
             viewBox="0 0 24 24"
-            :class="{ cheia: n <= Math.round(posto.nota) }"
+            :class="{ cheia: n <= Math.round(posto.mediaAvaliacao ?? 0) }"
           >
             <path
               d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"
             />
           </svg>
         </span>
-        <strong>{{ posto.nota.toFixed(1) }}</strong>
+        <strong>{{ posto.mediaAvaliacao?.toFixed(1) ?? "sem avaliação"}}</strong>
         <span class="total">({{ posto.totalAvaliacoes }} avaliações)</span>
       </div>
 
@@ -70,8 +70,8 @@ const emit = defineEmits(['favoritar', 'avaliar'])
 
       <div class="precos">
         <div class="preco-box" v-for="p in posto.precos" :key="p.tipo">
-          <span class="tipo">{{ p.tipo }}</span>
-          <span class="valor">R$ {{ p.preco.toFixed(2) }}</span>
+          <span class="tipo">{{ p.tipo_combustivel }}</span>
+          <span class="valor">R$ {{ p.preco_litro.toFixed(2) }}</span>
         </div>
       </div>
 
@@ -102,8 +102,8 @@ const emit = defineEmits(['favoritar', 'avaliar'])
 }
 
 .logo-posto {
-  width: 65%;
-  height: 65%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
 

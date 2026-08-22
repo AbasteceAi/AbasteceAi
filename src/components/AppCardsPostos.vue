@@ -42,17 +42,17 @@ watch(() => props.postos, () => {
 <template>
   <section class="postos">
     <p v-if="props.carregando" class="carregando">
-      Carregando postos...
+     <img src="/imgs/perso.gif" class="gif">
     </p>
     <div v-else class="postos-grid">
-     <div v-for="posto in postosVisiveis" 
-     :key="posto.id" 
+     <div v-for="posto in postosVisiveis"
+     :key="posto.id"
      class="posto-card">
         <div class="posto-imagem">
           <img
             :src="posto.foto_url"
             :alt="posto.nome"
-          />
+          class="posto-img"/>
         </div>
         <div class="posto-info">
           <div class="titulo-status">
@@ -89,9 +89,9 @@ watch(() => props.postos, () => {
               </span>
             </div>
           </div>
-          <button class="btn-ver-mais">
+          <RouterLink :to="`/posto/${posto.id}`"  class="btn-ver-mais">
             Ver mais
-          </button>
+          </RouterLink>
         </div>
       </div>
     </div>
@@ -139,17 +139,14 @@ watch(() => props.postos, () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: 5px;
    border-right: #002d82  2px solid;
 }
 
-.posto-imagem img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
- 
-  display: block;
-  transition: transform 0.3s ease;
+.posto-img {
+width: 100%;
+height: auto;
+
 }
 
 .posto-card:hover .posto-imagem img {
@@ -262,7 +259,7 @@ watch(() => props.postos, () => {
 }
 
 .btn-ver-mais {
-  margin-top: 14px;   
+  margin-top: 14px;
   width: 100%;
   height: 30px;
   background: #1748b0;
@@ -272,6 +269,9 @@ watch(() => props.postos, () => {
   font-size: 14px;
   font-weight: bold;
   cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  padding: 5px;
 }
 
 .btn-ver-mais:hover {
@@ -298,7 +298,13 @@ watch(() => props.postos, () => {
   background: #002d82;
   transform: translateY(-1px);
 }
-
+.gif{
+  width: 50%;
+  display: flex;
+ align-items: center;
+ justify-content: center;
+ margin: 0 auto;
+  }
 @media (max-width: 800px) {
 
   .postos-grid {
