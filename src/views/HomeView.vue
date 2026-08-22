@@ -1,15 +1,15 @@
 <script setup>
-import AppBanner from '../components/AppBanner.vue'
-import AppCardsInicio from '../components/AppCardsInicio.vue'
-import AppMapaHome from '../components/AppMapaHome.vue'
-import AppMenu from '../components/AppMenu.vue'
+import AppBanner from '../components/inicio/AppBanner.vue'
+import AppCardsInicio from '../components/inicio/AppCardsInicio.vue'
+import AppMapaInicio from '../components/inicio/AppMapaInicio.vue'
+import AppMenu from '../components/inicio/AppMenu.vue'
 </script>
 
 <template>
   <main>
     <AppBanner />
     <AppCardsInicio />
-    <AppMapaHome />
+    <AppMapaInicio />
     <AppMenu />
   </main>
 </template>

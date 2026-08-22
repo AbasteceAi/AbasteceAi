@@ -55,7 +55,7 @@ onMounted(carregar)
 <style scoped>
 main{
     height: 100%;
-    background-color: #0A1D58;
+    background-color: #1E3068;
     
 }
    .grid {
@@ -70,7 +70,7 @@ main{
   height: 95vh;
   margin: 5px;
   border-radius: 20px;
-  scrollbar-color: #002492 #FEC12B;
+  scrollbar-color: #1E3068 #FEC12B;
   overflow-y: auto;
   padding: 10px;
     }
