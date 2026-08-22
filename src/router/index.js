@@ -3,6 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import NotFound from '../views/ErrorView.vue'
 import MapaView from '../views/MapaView.vue'
+import LoginView from '../views/LoginView.vue'
+import CadastroView from '../views/CadastroView.vue'
 import PostosView from '../views/PostosView.vue'
 import PostoIndView from '@/views/PostoIndView.vue'
 
@@ -22,6 +24,15 @@ const router = createRouter({
       name: 'Mapa',
       component: MapaView
     },
+    {
+      path: '/login',
+      name: 'login',
+  component: LoginView
+    },
+    {
+  path: '/cadastro',
+  name: 'cadastro',
+  component: CadastroView
 
     {
       path: '/postos',
