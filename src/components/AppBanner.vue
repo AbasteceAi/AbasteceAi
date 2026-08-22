@@ -12,7 +12,7 @@
     <p>Compare os preços em tempo real e economize toda semana.</p>
     </div>
     <div class="imagem">
-    <img src="/imgs/boneco.png" alt="boneco" />
+    <img src="/imgs/pereTronco.png" alt="boneco" />
     </div>
     </section>
     </main>
