@@ -1,6 +1,4 @@
 <script>
-
-
 </script>
 
 
@@ -11,7 +9,7 @@
     <h1>4</h1>
     <img src="/public/imgs/erro-mascote.png" alt="imagem-mascote-erro">
     <h1>4</h1>
-    </div>   
+    </div>
      <p>Desculpe-nos, não conseguimos encontrar essa página</p>
     <div class="bttn">
         <router-link class="router-link" to="/">Voltar para o Ínicio</router-link>
@@ -23,6 +21,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 .error-container {
     background-color: #334582;
+    width: 100%;
+    height: 100vh;
 }
     h3{
         text-align: center;
@@ -69,6 +69,6 @@
         border-radius: 40px;
         padding: 1rem 4rem;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        
+
     }
 </style>

@@ -3,8 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import NotFound from '../views/ErrorView.vue'
 import MapaView from '../views/MapaView.vue'
-import LoginView from '../views/LoginView.vue'
-import CadastroView from '../views/CadastroView.vue'
+import AuthView from '@/views/AuthView.vue'
 import PostosView from '../views/PostosView.vue'
 import PostoIndView from '@/views/PostoIndView.vue'
 
@@ -25,14 +24,10 @@ const router = createRouter({
       component: MapaView
     },
     {
-      path: '/login',
-      name: 'login',
-  component: LoginView
+      path: '/auth',
+      name: 'auth',
+  component: AuthView, meta:{semHeader:true}
     },
-    {
-  path: '/cadastro',
-  name: 'cadastro',
-  component: CadastroView
 
     {
       path: '/postos',
@@ -41,13 +36,13 @@ const router = createRouter({
     },
     {
       path: '/posto/:id',
-      name:PostoIndView,
+      name:'PostoIndividual',
       component:PostoIndView
     },
     {
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
-      component: NotFound
+      component: NotFound, meta:{semHeader:true}
 
     }
 
@@ -61,7 +56,7 @@ router.beforeEach(async (to, from, next) => {
   if (rotasProtegidas.includes(to.path)) {
     const user = await usuarioAtual()
     if (!user) {
-      next('/login')
+      next('/auth?mode=login')
       return
     }
   }
