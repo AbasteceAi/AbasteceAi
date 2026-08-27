@@ -2,7 +2,8 @@
 const props = defineProps(['posto', 'combustivelSel']);
 const emit = defineEmits(['clique'])
 function precoDoTipo() {
-    return props.posto.precos?.find(p => p.tipo_combustivel === props.combustivelSel)
+  if (!props.combustivelSel) return props.posto.precos?.[0]
+  return props.posto.precos?.find(p => p.tipo_combustivel.toLowerCase() === props.combustivelSel.toLowerCase())
 }
 </script>
 <template>
@@ -24,50 +25,37 @@ function precoDoTipo() {
 1062 -1374 25 -116 27 -145 28 -366 0 -267 -10 -345 -70 -555 -161 -561 -586
 -1032 -1130 -1253 -201 -82 -365 -120 -592 -139 -294 -25 -593 23 -878 139
 -544 221 -969 692 -1130 1253 -60 210 -70 288 -70 555 1 221 3 250 28 366 112
-527 406 965 842 1252 177 116 437 227 637 271 209 46 467 58 672 31z" />
-                    </g>
-                </svg></div>
-            <p>{{ posto.endereco }}</p>
-        </div>
-        <div class="cont">
-            <img :src="posto.foto_url" class="img">
-            <div class="infoN">
-                <h2 class="nome">{{ posto.nome }}</h2>
-                <div>
-                    <div>
-                        <p v-if="posto.aberto === true" class="status aberto"> <span>
-                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-                                    xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 120 120"
-                                    enable-background="new 0 0 120 120" xml:space="preserve">
-                                    <circle cx="60" cy="60.834" r="54.167" />
-                                </svg>
-                            </span> Aberto </p>
-                        <p v-else-if="posto.aberto === false" class="status fechado"><span><svg version="1.1"
-                                    id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-                                    xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 120 120"
-                                    enable-background="new 0 0 120 120" xml:space="preserve">
-                                    <circle cx="60" cy="60.834" r="54.167" />
-                                </svg></span> Fechado </p>
-                        <p v-else class="status desconhecido"><span></span> Horário não disponível</p>
-                        <div>
-                            <p>
-                                <svg fill="#FEC12B" viewBox="0 0 24 24" class="cursor" data-name="Flat Color"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path id="primary"
-                                        d="M21.4,2.6a2,2,0,0,0-2.27-.42h0L3.2,9.4A2,2,0,0,0,2,11.52a2.26,2.26,0,0,0,1.8,2l5.58,1.13,1.13,5.58a2.26,2.26,0,0,0,2,1.8h.25a2,2,0,0,0,1.87-1.2L21.82,4.87A2,2,0,0,0,21.4,2.6Z"
-                                        style="fill:#FEC12B;"></path>
-                                </svg>
-                            </p>
-                            <p v-if="posto.distancia" class="dist">{{ posto.distancia.toFixed(1) }}km</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div v-if="precoDoTipo()">
-                <div class="precoS">
-                    <p>{{ precoDoTipo().tipo_combustivel }}</p>
-                    <h1><span>R$</span> {{ precoDoTipo().preco_litro.toFixed(2) }}</h1>
-                </div>
+527 406 965 842 1252 177 116 437 227 637 271 209 46 467 58 672 31z"/>
+</g>
+</svg></div><p>{{ posto.endereco }}</p></div>
+      <div class="cont">
+      <img :src="posto.foto_url" class="img">
+      <div class="infoN">
+         <h2 class="nome">{{ posto.nome }}</h2>
+         <div>
+            <div>
+            <p v-if="posto.aberto === true" class="status aberto"> <span>
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 120 120" enable-background="new 0 0 120 120" xml:space="preserve"><circle cx="60" cy="60.834" r="54.167"/></svg>
+            </span> Aberto </p>
+            <p v-else-if="posto.aberto === false" class="status fechado"><span><svg  version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 viewBox="0 0 120 120" enable-background="new 0 0 120 120" xml:space="preserve">
+<circle cx="60" cy="60.834" r="54.167"/>
+</svg></span> Fechado </p>
+            <p v-else class="status desconhecido"><span></span> Horário não disponível</p>
+            <div>
+            <p>
+         <svg fill="#FEC12B"  viewBox="0 0 24 24" class="cursor" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg"><path id="primary" d="M21.4,2.6a2,2,0,0,0-2.27-.42h0L3.2,9.4A2,2,0,0,0,2,11.52a2.26,2.26,0,0,0,1.8,2l5.58,1.13,1.13,5.58a2.26,2.26,0,0,0,2,1.8h.25a2,2,0,0,0,1.87-1.2L21.82,4.87A2,2,0,0,0,21.4,2.6Z" style="fill:#FEC12B;"></path></svg>
+         </p>
+         <p v-if="posto.distancia" class="dist">{{ posto.distancia.toFixed(1) }}km</p>
+         </div>
+         </div>
+         </div>
+       </div>
+       <div v-if="precoDoTipo()" >
+       <div class="precoS">
+         <p>{{ precoDoTipo().tipo_combustivel.charAt(0).toUpperCase() + precoDoTipo().tipo_combustivel.slice(1)  }}</p>
+         <h1><span>R$</span> {{ precoDoTipo().preco_litro.toFixed(2) }}</h1>
+         </div>
 
             </div>
         </div>

@@ -30,12 +30,12 @@ export async function buscarFavoritos() {
 
   const { data, error } = await supabase
     .from('favoritos')
-    .select('posto_id, postos(*)') // já traz os dados completos do posto junto
+    .select('posto_id, postos(*, precos(tipo_combustivel, preco_litro))')
     .eq('user_id', user.id)
 
   if (error) throw error
 
-  return data.map(f => f.postos) // simplifica, retornando só os postos
+  return data.map(f => f.postos)
 }
 
 export async function ehFavorito(postoId) {
@@ -47,7 +47,7 @@ export async function ehFavorito(postoId) {
     .select('id')
     .eq('user_id', user.id)
     .eq('posto_id', postoId)
-    .maybeSingle() // não dá erro se não encontrar nada (diferente de .single())
+    .maybeSingle() 
 
   if (error) throw error
   return !!data

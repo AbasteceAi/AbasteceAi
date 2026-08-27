@@ -1,9 +1,16 @@
 <script setup>
 import { RouterLink } from 'vue-router'
+
+function voltarAoTopo() {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
 </script>
 
 <template>
   <footer>
+    <button class="btn-topo" @click="voltarAoTopo" aria-label="Voltar ao topo">
+      <img src="/public/imgs/seta.png" alt="">
+    </button>
     <div class="footer">
       <div class="logo">
         <img src="/imgs/logoMaior.png" alt="logo" />
@@ -29,6 +36,7 @@ import { RouterLink } from 'vue-router'
 
 <style scoped>
 footer {
+  position: relative;
   display: flex;
   justify-content: left;
   padding: 20px;
@@ -92,5 +100,23 @@ footer {
 
 .links a:hover {
   text-decoration: underline;
+}
+.btn-topo {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-topo img {
+  width: 60%;
 }
 </style>
