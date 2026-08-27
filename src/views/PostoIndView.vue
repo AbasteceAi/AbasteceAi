@@ -5,6 +5,7 @@ import { supabase } from '@/data/supabaseClient.js'
 import PostoBanner from '@/components/postos/PostoBanner.vue'
 import PostoServicos from '@/components/postos/PostoServicos.vue'
 import PostoAvaliacao from '@/components/postos/PostoAvaliacao.vue'
+import ModalAvaliacaoPreco from '@/components/posto/ModalAvaliacao.vue'
 
  const route = useRoute()
  const posto = ref(null)
@@ -14,7 +15,13 @@ const favorito = ref(false)
 function alternarFavorito() {
   favorito.value = !favorito.value
 }
+
+const modalAvaliacaoAberto = ref(false)
 function irParaAvaliar() {
+  modalAvaliacaoAberto.value = true
+}
+function aoSalvarAvaliacaoOuPreco() {
+  carregarPosto()
 }
 
 async function carregarPosto() {
@@ -56,7 +63,7 @@ const avaliacoes = ref([
     iniciais: 'BS',
     cor: '#334582',
   },
-  // ...resto dos dados de teste
+  
 ])
 </script>
 
@@ -73,6 +80,12 @@ const avaliacoes = ref([
     <PostoServicos />
 
     <PostoAvaliacao :avaliacoes="avaliacoes" />
+
+    <ModalAvaliacaoPreco
+      v-model="modalAvaliacaoAberto"
+      :posto="posto"
+      @salvo="aoSalvarAvaliacaoOuPreco"
+    />
   </div>
 
   </main>
