@@ -33,7 +33,6 @@ function carregarMais() {
   quantidadeVisivel.value += 6
 }
 
-// zera a paginação sempre que o filtro de bairro mudar
 watch(() => props.postos, () => {
   quantidadeVisivel.value = 6
 })

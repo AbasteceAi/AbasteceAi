@@ -45,7 +45,7 @@ function adicionarMarcadores() {
     })
     .addTo(mapa)
     marcadores.push(marker)
-    marcadoresPorId[ponto.id] = marker // guarda pra achar rapidinho depois
+    marcadoresPorId[ponto.id] = marker
   })
 }
 onMounted(() => {
