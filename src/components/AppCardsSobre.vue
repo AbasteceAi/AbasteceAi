@@ -84,7 +84,7 @@ defineProps({
 }
 .cardSobre:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.45);
 }
 .foto {
   width: 86px;

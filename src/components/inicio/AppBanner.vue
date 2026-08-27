@@ -33,12 +33,12 @@
 .texto {
     position: absolute;
     left: 100px;
-    top: 10px;
+    top: 100px;
 }
 
 h1 {
-    font-size: 40px;
-    margin-bottom: 30px;
+    font-size: 3rem;
+    margin-bottom: 25px;
     color: #ffffff;
 }
 
