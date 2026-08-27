@@ -5,16 +5,39 @@ import { supabase } from '@/data/supabaseClient.js'
 import PostoBanner from '@/components/postos/PostoBanner.vue'
 import PostoServicos from '@/components/postos/PostoServicos.vue'
 import PostoAvaliacao from '@/components/postos/PostoAvaliacao.vue'
+import ModalAvaliacaoPreco from '@/components/posto/ModalAvaliacao.vue'
+import { adicionarFavorito, removerFavorito, ehFavorito } from '@/services/favoritos'
 
  const route = useRoute()
  const posto = ref(null)
 const carregando = ref(true)
 
+
 const favorito = ref(false)
-function alternarFavorito() {
-  favorito.value = !favorito.value
+onMounted(async () => {
+  await carregarPosto()
+  favorito.value = await ehFavorito(route.params.id)
+})
+
+async function alternarFavorito() {
+  try {
+    if (favorito.value) {
+      await removerFavorito(posto.value.id)
+    } else {
+      await adicionarFavorito(posto.value.id)
+    }
+    favorito.value = !favorito.value
+  } catch (e) {
+    console.error(e)
+  }
 }
+
+const modalAvaliacaoAberto = ref(false)
 function irParaAvaliar() {
+  modalAvaliacaoAberto.value = true
+}
+function aoSalvarAvaliacaoOuPreco() {
+  carregarPosto()
 }
 
 async function carregarPosto() {
@@ -56,7 +79,6 @@ const avaliacoes = ref([
     iniciais: 'BS',
     cor: '#334582',
   },
-  // ...resto dos dados de teste
 ])
 </script>
 
@@ -73,6 +95,12 @@ const avaliacoes = ref([
     <PostoServicos />
 
     <PostoAvaliacao :avaliacoes="avaliacoes" />
+
+    <ModalAvaliacaoPreco
+      v-model="modalAvaliacaoAberto"
+      :posto="posto"
+      @salvo="aoSalvarAvaliacaoOuPreco"
+    />
   </div>
 
   </main>

@@ -1,9 +1,16 @@
 <script setup>
 import { RouterLink } from 'vue-router'
+
+function voltarAoTopo() {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
 </script>
 
 <template>
   <footer>
+    <button class="btn-topo" @click="voltarAoTopo" aria-label="Voltar ao topo">
+      <img src="/public/imgs/seta.png" alt="">
+    </button>
     <div class="footer">
       <div class="logo">
         <img src="/imgs/logoMaior.png" alt="logo" />
@@ -29,6 +36,7 @@ import { RouterLink } from 'vue-router'
 
 <style scoped>
 footer {
+  position: relative;
   display: flex;
   justify-content: left;
   padding: 20px;
@@ -36,7 +44,7 @@ footer {
   background-size: cover;
   background-position: top;
   background-repeat: no-repeat;
-  min-height: 380px;
+  height: 300px;
   width: 100%;
 }
 
@@ -57,14 +65,14 @@ footer {
 }
 
 .logo img {
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
 }
 
 .logo span {
   color: #fff;
   font-weight: 700;
-  font-size: 30px;
+  font-size: 24px;
 }
 
 .links {
@@ -75,7 +83,7 @@ footer {
 }
 
 .links h1 {
-  font-size: 30px;
+  font-size: 22px;
   color: #000000;
   margin-bottom: 4px;
   border-bottom: 6px solid #1F2B54;
@@ -86,11 +94,29 @@ footer {
 .links a {
   color: #000000;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
 }
 
 .links a:hover {
   text-decoration: underline;
+}
+.btn-topo {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-topo img {
+  width: 60%;
 }
 </style>
