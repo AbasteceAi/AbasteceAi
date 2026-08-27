@@ -1,5 +1,37 @@
 <script setup>
-import { RouterLink } from 'vue-router'
+import { ref } from 'vue'
+import { RouterLink, useRouter } from 'vue-router'
+import { pesquisarGlobal } from '@/services/postos.js'
+
+const router = useRouter()
+const termoPesquisa = ref('')
+const resultadosBusca = ref([])
+let idDebounce = null
+
+function aoDigitarPesquisa() {
+  clearTimeout(idDebounce)
+  const termo = termoPesquisa.value
+
+  if (!termo.trim()) {
+    resultadosBusca.value = []
+    return
+  }
+
+  idDebounce = setTimeout(async () => {
+    resultadosBusca.value = await pesquisarGlobal(termo)
+  }, 300)
+}
+
+function selecionarResultado(resultado) {
+  if (resultado.tipo === 'Posto') {
+    router.push(`/posto/${resultado.id}`)
+  } else if (resultado.tipo === 'Rua' || resultado.tipo === 'Bairro') {
+    router.push({ path: '/Mapa', query: { busca: resultado.texto } })
+  }
+
+  termoPesquisa.value = ''
+  resultadosBusca.value = []
+}
 </script>
 
 <template>
@@ -11,22 +43,36 @@ import { RouterLink } from 'vue-router'
     <div class="nav-container">
     <nav class="nav">
       <RouterLink to="/">INÍCIO</RouterLink>
-      <RouterLink to="/mapa">MAPA</RouterLink>
+      <RouterLink to="/Mapa">MAPA</RouterLink>
       <RouterLink to="/postos">POSTOS</RouterLink>
       <RouterLink to="/sobre-nos">SOBRE NÓS</RouterLink>
     </nav>
 
-    <div class="pesquisa">
-      <svg class="search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z"
-          stroke="#334582"
-          stroke-width="2"
-          stroke-linecap="round"
-        />
-      </svg>
+    <div class="pesquisa-wrapper">
+      <div class="pesquisa">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z"
+            stroke="#334582"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+        </svg>
 
-      <input type="text" placeholder="Pesquisar" />
+        <input
+          type="text"
+          placeholder="Pesquisar"
+          v-model="termoPesquisa"
+          @input="aoDigitarPesquisa"
+        />
+      </div>
+
+      <ul v-if="resultadosBusca.length" class="resultados-busca">
+        <li v-for="(resultado, i) in resultadosBusca" :key="i" @mousedown.prevent="selecionarResultado(resultado)">
+          <span class="texto-resultado">{{ resultado.texto }}</span>
+          <span class="tipo-resultado">{{ resultado.tipo }}</span>
+        </li>
+      </ul>
     </div>
 
     <RouterLink to="/favoritos" class="icone-link" aria-label="Favoritos">
@@ -133,17 +179,74 @@ import { RouterLink } from 'vue-router'
   flex: 1;
   justify-content: right;
 }
-.pesquisa {
-  height: 34px;
+.pesquisa-wrapper {
+  position: relative;
   flex: 1;
   max-width: 230px;
   min-width: 150px;
+}
+
+.pesquisa {
+  height: 34px;
+  width: 100%;
   background-color: white;
   border-radius: 20px;
   display: flex;
   align-items: center;
   padding: 0 10px;
   box-sizing: border-box;
+}
+
+.resultados-busca {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 280px;
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(0, 9, 41, 0.25);
+  list-style: none;
+  padding: 6px 0;
+  margin: 0;
+  z-index: 50;
+}
+
+.resultados-busca li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f1f6;
+}
+
+.resultados-busca li:last-child {
+  border-bottom: none;
+}
+
+.resultados-busca li:hover {
+  background-color: #fdf3d6;
+}
+
+.texto-resultado {
+  color: #334582;
+  font-weight: 700;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tipo-resultado {
+  color: #9aa2c1;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .pesquisa input {
