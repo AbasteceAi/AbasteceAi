@@ -160,7 +160,7 @@ async function ValidarLogin() {
 }
 .auth-wrapper {
   min-height: 100vh;
-  background-color: #354d8f; /* mesma cor do .cadastro-content/.login-content */
+  background-color: #354d8f;
 }
 .cadastro-page {
   min-height: 100vh;

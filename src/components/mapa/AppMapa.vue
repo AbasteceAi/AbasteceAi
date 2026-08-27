@@ -10,7 +10,6 @@ const carregando = ref(true)
 const combustivelSelecionado = ref('')
 const postoSel = ref(null)
 const buscaNome = ref('')
-
 const postosFiltrados = computed(() => {
   let resultado = postos.value;
   if( buscaNome.value.trim()){
