@@ -5,14 +5,30 @@ import { supabase } from '@/data/supabaseClient.js'
 import PostoBanner from '@/components/postos/PostoBanner.vue'
 import PostoServicos from '@/components/postos/PostoServicos.vue'
 import PostoAvaliacao from '@/components/postos/PostoAvaliacao.vue'
+import { adicionarFavorito, removerFavorito, ehFavorito } from '@/services/favoritos'
 
  const route = useRoute()
  const posto = ref(null)
 const carregando = ref(true)
 
+
 const favorito = ref(false)
-function alternarFavorito() {
-  favorito.value = !favorito.value
+onMounted(async () => {
+  await carregarPosto()
+  favorito.value = await ehFavorito(route.params.id)
+})
+
+async function alternarFavorito() {
+  try {
+    if (favorito.value) {
+      await removerFavorito(posto.value.id)
+    } else {
+      await adicionarFavorito(posto.value.id)
+    }
+    favorito.value = !favorito.value
+  } catch (e) {
+    console.error(e)
+  }
 }
 function irParaAvaliar() {
 }
@@ -56,7 +72,6 @@ const avaliacoes = ref([
     iniciais: 'BS',
     cor: '#334582',
   },
-  // ...resto dos dados de teste
 ])
 </script>
 

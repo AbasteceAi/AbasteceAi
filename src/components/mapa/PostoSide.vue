@@ -1,5 +1,5 @@
 <script setup>
-const props =defineProps(['posto', 'combustivelSel']);
+const props = defineProps(['posto', 'combustivelSel']);
 const emit = defineEmits(['clique'])
 function precoDoTipo() {
   if (!props.combustivelSel) return props.posto.precos?.[0]
@@ -8,16 +8,15 @@ function precoDoTipo() {
 </script>
 <template>
 
-    <div class="card" @click="emit('clique' , posto)">
-           <div class="faixa"><div> <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
- class="locE" viewBox="0 0 930.000000 1280.000000"
- preserveAspectRatio="xMidYMid meet">
-<metadata>
-Created by potrace 1.15, written by Peter Selinger 2001-2017
-</metadata>
-<g transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)"
- stroke="none">
-<path d="M4335 12789 c-1496 -104 -2843 -915 -3635 -2190 -232 -373 -414 -787
+    <div class="card" @click="emit('clique', posto)">
+        <div class="faixa">
+            <div> <svg version="1.0" xmlns="http://www.w3.org/2000/svg" class="locE"
+                    viewBox="0 0 930.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
+                    <metadata>
+                        Created by potrace 1.15, written by Peter Selinger 2001-2017
+                    </metadata>
+                    <g transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)" stroke="none">
+                        <path d="M4335 12789 c-1496 -104 -2843 -915 -3635 -2190 -232 -373 -414 -787
 -529 -1204 -305 -1107 -197 -2278 305 -3295 191 -387 372 -660 676 -1020 34
 -41 753 -976 1596 -2077 918 -1199 1555 -2022 1588 -2052 186 -170 442 -170
 628 0 33 30 670 853 1588 2052 843 1101 1562 2036 1596 2077 304 360 485 633
@@ -58,22 +57,23 @@ Created by potrace 1.15, written by Peter Selinger 2001-2017
          <h1><span>R$</span> {{ precoDoTipo().preco_litro.toFixed(2) }}</h1>
          </div>
 
-       </div>
-      </div>
+            </div>
+        </div>
     </div>
 </template>
 <style scoped>
-.card{
-  border-radius: 16px;
-  background-color: #FFF;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  width: 95%;
-  padding-top: 0;
-  margin: 10px;
-  padding-bottom: 5px;
+.card {
+    border-radius: 16px;
+    background-color: #FFF;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 95%;
+    padding-top: 0;
+    margin: 10px;
+    padding-bottom: 5px;
 }
-.faixa{
+
+.faixa {
     display: flex;
     gap: 5px;
     background-color: #FEC12B;
@@ -82,47 +82,53 @@ Created by potrace 1.15, written by Peter Selinger 2001-2017
     padding: 10px;
     width: 100%;
 }
+
 .faixa p {
     margin: 0;
     font-size: 14px;
 }
-.cont{
+
+.cont {
     display: flex;
-    gap: 10px;
+    gap: 14px;
     align-items: flex-start;
-    padding: 10px;
+    padding: 18px;
 }
-.img{
+
+.img {
     width: 60px;
     height: 60px;
     flex-shrink: 0;
 }
-.infoN{
-    border-right: 2px solid #002492;
 
+.infoN {
+    border-right: 2px solid #002492;
     flex: 1;
     min-width: 0;
 }
+
 .infoN div {
     display: flex;
-    gap: 10px;
+    gap: 14px;
 }
-.nome{
-  font-size: 1.3rem;
-  color: #002492;
 
+.nome {
+    font-size: 1.3rem;
+    color: #002492;
 }
-.locE{
-      fill: #334582;
+
+.locE {
+    fill: #334582;
     width: 18px
 }
-.loc{
+
+.loc {
     fill: #FEC12B;
     width: 20px;
 }
-.dist{
-    font-size: 15px;
+
+.dist {
+    font-size: 16px;
     font-weight: bold;
 }
-
 </style>
