@@ -23,7 +23,7 @@ export function mostrarConteudo(ponto, combustivelSelecionado) {
   const precoSelecionado = ponto.precos?.find(p => p.tipo_combustivel === combustivelSelecionado)
   const precoHtml = precoSelecionado
     ? `<div class="linha-preco">
-        <span class="tipo">${precoSelecionado.tipo_combustivel}</span>
+        <span class="tipo">${precoSelecionado.tipo_combustivel.charAt(0).toUpperCase()+ precoSelecionado.tipo_combustivel.slice(1)}</span>
         <span class="preco">R$ ${precoSelecionado.preco_litro.toFixed(2)}</span>
       </div>`
     : '<p class="sem-preco">Preço não disponível</p>'
