@@ -45,15 +45,18 @@ footer {
   background-position: top;
   background-repeat: no-repeat;
   height: 300px;
-  width: 100%;
+  margin: 0;
+ 
 }
 
 .footer {
   width: 100%;
   max-width: 1200px;
+  margin: 0;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+
 }
 
 .logo {

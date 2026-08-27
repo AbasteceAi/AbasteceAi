@@ -1,6 +1,7 @@
 import { supabase } from '@/data/supabaseClient'
 import { calcularDistancia } from '@/utils/distancia'
 import { estaAberto } from '@/utils/horario'
+
 export async function buscarPostos() {
   const { data, error } = await supabase
     .from('postos')
@@ -15,6 +16,7 @@ export async function buscarPostos() {
     ...posto,
     aberto:estaAberto(posto.horario)
 }))}
+
 export function extrairBairro(endereco) {
   const match = endereco.match(/-\s*([^,]+),\s*Joinville/i)
   return match ? match[1].trim() : null
@@ -72,6 +74,7 @@ export async function pesquisarGlobal(termo) {
   return resultados.slice(0, 8)
 }
 
+
 export function obterLoc() {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(
@@ -81,7 +84,7 @@ export function obterLoc() {
       }),
       reject
     )
-  })  
+  })
 }
 
 export function ordenarPorDistancia(postos, userLat, userLng) {
@@ -106,7 +109,7 @@ export async function buscarTipoCombustivel(){
 export async function enviarAvaliacao({ postoId, usuarioId, nota, comentario }) {
   const { error } = await supabase
     .from('avaliacoes')
-    .insert({ posto_id: postoId, usuario_id: usuarioId, nota, comentario })
+    .insert({ posto_id: postoId, user_id: usuarioId, nota, comentario })
 
   if (error) {
     console.error('Erro ao enviar avaliação:', error)
