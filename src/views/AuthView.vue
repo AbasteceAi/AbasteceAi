@@ -50,7 +50,7 @@ async function ValidarLogin() {
   <Transition name="fade" mode="out-in">
     <main v-if="!modoLogin" key="cadastro" class="cadastro-page">
     <section class="cadastro-image">
-      <img src="/imgs/boneco.png" alt="Personagem do AbasteceAí" />
+      <img src="/imgs/pere.png" alt="Personagem do AbasteceAí" />
 
       <img class="decorative-lines" src="/imgs/ondas.svg" alt="" />
     </section>
@@ -87,7 +87,7 @@ async function ValidarLogin() {
   </main>
  <main v-else key="login" class="login-page">
     <section class="login-image">
-     <img src="/imgs/boneco.png" alt="Personagem do AbasteceAí" />
+     <img src="/imgs/pere.png" alt="Personagem do AbasteceAí" />
 
         <img
     class="decorative-lines"
