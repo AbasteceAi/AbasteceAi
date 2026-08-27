@@ -5,7 +5,7 @@ const equipe = [
   {
     nome: 'Bruna Siebert',
     funcao: 'Desenvolvedora',
-    descricao: '.',
+    descricao: 'Contribuiu no código das páginas de cadastro e login, além da parte responsiva. Também trabalhou no design da página inicial e da página de postos.',
     imagem: '/imgs/bruna.png',
     instagram: "https://www.instagram.com/brunasiebert/",
     github: "https://github.com/brunasiebertm",
@@ -17,7 +17,7 @@ const equipe = [
   {
     nome: 'Ester Viana',
     funcao: 'Desenvolvedora',
-    descricao: '.',
+    descricao: 'Responsável pela codificação da página sobre nós, além de atuar no design e na adaptação responsiva da página.',
     imagem: '/imgs/ester.png',
     instagram: "https://www.instagram.com/eester.sz/",
     github: "https://github.com/esterdesouza",
@@ -28,7 +28,7 @@ const equipe = [
   {
     nome: 'Giulia Côrrea',
     funcao: 'Desenvolvedora',
-    descricao: '.',
+    descricao: 'Contribuiu para a codificação da página inicial, do header e do footer, além da implementação da funcionalidade de favoritos.',
     imagem: '/imgs/giulia.png',
     instagram: "https://www.instagram.com/giiubws/",
     github: "https://github.com/giuliamcorrea",
@@ -39,7 +39,7 @@ const equipe = [
   {
     nome: 'Halicya Recalde',
     funcao: 'Desenvolvedora',
-    descricao: '.',
+    descricao: 'Ficou responsável pelo código das páginas de mapa e usuário, pelo banco de dados do projeto e pelo design da página de usuários no Figma. ',
     imagem: '/imgs/halicya.png',
     instagram: "https://www.instagram.com/hwskira/",
     github: "https://github.com/halicyafranca",
@@ -50,7 +50,7 @@ const equipe = [
   {
     nome: 'Laura Luciano',
     funcao: 'Desenvolvedora',
-    descricao: '.',
+    descricao: 'Ficou responsável pelo código da página individual dos postos, pela coleta dos dados e também criou as funções de janela modal e sugestões de pesquisa.',
     imagem: '/imgs/laura.png',
     instagram: "https://www.instagram.com/itzgirrl/",
     github: "https://github.com/lauraluciano",
@@ -61,7 +61,7 @@ const equipe = [
   {
     nome: 'Tiago Perin',
     funcao: 'Desenvolvedor',
-    descricao: '.',
+    descricao: 'Responsável pelo design das páginas de mapa, cadastro/login, erro, avaliação, postos, footer e header. No código, trabalhou nas páginas de postos e de erro.',
     imagem: '/imgs/tiago.png',
     instagram: "https://www.instagram.com/tiagomperin_/",
     github: "https://github.com/TiagoMPerin",
@@ -88,7 +88,7 @@ const equipe = [
       </div>
 
       <div class="imagem-mascote">
-        <img src="/public/imgs/mascoteSobre.png" alt="Mascote" />
+        <img src="/public/imgs/mascoteSobreNos.png" alt="Mascote" />
       </div>
     </section>
 
@@ -171,7 +171,7 @@ main {
   border-radius: 5px;
 }
 .texto-sobre p {
-  font-size: 20px;
+  font-size: 25px;
   line-height: 1.5;
   color: #2d2c2c;
   margin-bottom: 8px;
@@ -183,7 +183,7 @@ main {
 }
 .imagem-mascote img {
   width: 100%;
-  max-width: 300px;
+  max-width: 400px;
 }
 .objetivo {
   background: #334582;
@@ -201,7 +201,7 @@ main {
 .objetivo p {
   max-width: 800px;
   margin: 4px auto;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 1.5;
 }
 
@@ -216,8 +216,9 @@ main {
 }
 .equipe p{
   text-align: right;
-  font-size: 20px;
+  font-size: 25px;
 }
+
 .descricao {
   text-align: center;
   font-size: 16px;

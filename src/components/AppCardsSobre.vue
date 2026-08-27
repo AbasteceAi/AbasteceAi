@@ -70,7 +70,7 @@ defineProps({
 
 .cardSobre {
    width: 100%;
-  height: 150px;
+  min-height: 180px;
   background: #394f91;
   border-radius: 18px;
   padding: 20px 30px;
@@ -100,23 +100,26 @@ defineProps({
 .informacoes {
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .informacoes h3 {
   margin: 0;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 600;
-  line-height: 1.1;
+  line-height: 1.2;
 }
 .funcao {
   display: block;
   margin-top: 2px;
-  font-size: 11px;
+  font-size: 15px;
   font-weight: 400;
   color: #e4e4e4;
 }
 .informacoes p {
   margin: 8px 0 10px;
-  font-size: 10px;
+  font-size: 15px;
   line-height: 1.35;
   color: white;
 }
