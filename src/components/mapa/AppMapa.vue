@@ -86,13 +86,15 @@ onMounted(carregar)
 </template>
 <style scoped>
 main{
-   height: 100%;
-      background-color: #002492;
+    height: 100%;
+    background-color: #1E3068;
+    
 }
    .grid {
     display: grid;
     grid-template-columns: 600px 1fr;
-
+    padding: 50px;
+    gap: 30px;
     }
     .side{
   background-color: #334582;
@@ -100,13 +102,14 @@ main{
   height: 95vh;
   margin: 5px;
   border-radius: 20px;
-  scrollbar-color: #002492 #FEC12B;
+  scrollbar-color: #1E3068 #FEC12B;
   overflow-y: auto;
+  padding: 10px;
     }
   .text {
     color: #FFF;
     font-size: 1.8rem;
-    padding: 10px;
+    padding: 60px 60px 0 60px;
   }
 .filtros {
   display: flex;

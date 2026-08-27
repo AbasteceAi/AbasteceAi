@@ -7,7 +7,7 @@
     <h3>Erro</h3>
     <div class="erro404">
     <h1>4</h1>
-    <img src="/public/imgs/erro-mascote.png" alt="imagem-mascote-erro">
+    <img src="/public/imgs/erroMascote.png" alt="imagem-mascote-erro">
     <h1>4</h1>
     </div>
      <p>Desculpe-nos, não conseguimos encontrar essa página</p>
@@ -23,12 +23,16 @@
     background-color: #334582;
     width: 100%;
     height: 100vh;
+    padding: 6rem 0 0 0;
 }
     h3{
         text-align: center;
         font-size: 2rem;
         color: #FEC12B;
         padding: 1rem 0;
+    }
+    img {
+        width: 450px;
     }
     .erro404{
         display: flex;
