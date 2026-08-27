@@ -61,25 +61,12 @@ async function carregarPosto() {
       mediaAvaliacao: media,
       totalAvaliacoes: notas.length
     }
+    avaliacoes.value = data.avaliacoes ?? []
   }
   carregando.value = false
 }
 
-onMounted(carregarPosto)
-const avaliacoes = ref([
-  {
-    id: 1,
-    nome: 'Bruna Siebert',
-    qtdAvaliacoes: 23,
-    data: '25/02/26',
-    nota: 5,
-    comentario: 'Melhor preço de etanol que encontrei em Joinville essa semana! Já indiquei para minha família e colegas de trabalho. A loja de conveniência também é bem abastecida.',
-    util: 12,
-    marcouUtil: false,
-    iniciais: 'BS',
-    cor: '#334582',
-  },
-])
+const avaliacoes = ref([])
 </script>
 
 <template>

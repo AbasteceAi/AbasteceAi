@@ -109,7 +109,7 @@ export async function buscarTipoCombustivel(){
 export async function enviarAvaliacao({ postoId, usuarioId, nota, comentario }) {
   const { error } = await supabase
     .from('avaliacoes')
-    .insert({ posto_id: postoId, usuario_id: usuarioId, nota, comentario })
+    .insert({ posto_id: postoId, user_id: usuarioId, nota, comentario })
 
   if (error) {
     console.error('Erro ao enviar avaliação:', error)
