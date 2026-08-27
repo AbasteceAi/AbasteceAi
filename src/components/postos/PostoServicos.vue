@@ -72,14 +72,14 @@ function fecharTooltip() {
               d="M4 10v10h5v-6h6v6h5V10M2 8l2-6h16l2 6M2 8h20M2 8v0a2 2 0 0 0 4 0M6 8a2 2 0 0 0 4 0M10 8a2 2 0 0 0 4 0M14 8a2 2 0 0 0 4 0M18 8a2 2 0 0 0 4 0"
             />
           </svg>
-          <svg v-else-if="s.icone === 'limpeza'" viewBox="0 0 24 24">
-            <path d="M19 3l-9 9M4 21l3-3m0 0l7.5-7.5a2.1 2.1 0 0 1 3 3L10 21H4v-3z" />
-          </svg>
-          <svg v-else viewBox="0 0 24 24">
-            <path
-              d="M8 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3 20c0-3 2.5-5 5-5s5 2 5 5M16 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM13 20c.3-2.3 2-4 3.5-4s3.2 1.7 3.5 4"
-            />
-          </svg>
+<svg xmlns="http://www.w3.org/2000/svg" v-else-if="s.icone === 'limpeza'" height="14" width="12.25" viewBox="0 0 448 512"><path fill="rgb(255, 255, 255)" d="M443.7 208c2.7 4.7 4.3 10.2 4.3 16 0 17.7-14.3 32-32 32l-5.1 0-22.4 213c-2.6 24.4-23.2 43-47.8 43l-233.6 0c-24.6 0-45.2-18.5-47.8-43L37.1 256 32 256c-17.7 0-32-14.3-32-32 0-5.8 1.6-11.3 4.3-16l439.4 0zM224-16c79.5 0 144 64.5 144 144l0 32-48 0 0-32c0-53-43-96-96-96s-96 43-96 96l0 32-48 0 0-32C80 48.5 144.5-16 224-16z"/></svg>
+
+
+
+        <svg xmlns="http://www.w3.org/2000/svg" v-else height="12" width="15" viewBox="0 0 640 512"><path fill="rgb(255, 255, 255)" d="M80 48a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm40 304l0 128c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-154.8c-8.1 9.2-21.1 13.2-33.5 9.4-16.9-5.3-26.3-23.2-21-40.1l29.7-95.2C44.4 156.9 83.6 128 128 128s83.6 28.9 96.8 71.2l29.7 95.2c5.3 16.9-4.1 34.8-21 40.1-12.4 3.9-25.4-.2-33.5-9.4L200 480c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-128-16 0zM320 0c13.3 0 24 10.7 24 24l0 464c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-464c0-13.3 10.7-24 24-24zM464 48a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zM440 480l0-96-17.8 0c-10.9 0-18.6-10.7-15.2-21.1l9-26.9c-3.2 0-6.4-.5-9.5-1.5-16.9-5.3-26.3-23.2-21-40.1l29.7-95.2C428.4 156.9 467.6 128 512 128s83.6 28.9 96.8 71.2l29.7 95.2c5.3 16.9-4.1 34.8-21 40.1-3.2 1-6.4 1.5-9.5 1.5l9 26.9c3.5 10.4-4.3 21.1-15.2 21.1l-17.8 0 0 96c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-96-16 0 0 96c0 17.7-14.3 32-32 32s-32-14.3-32-32z"/></svg>
+
+
+          
         </button>
 
         <transition name="tooltip-fade">
@@ -101,7 +101,8 @@ function fecharTooltip() {
 }
 
 .servicos-faixa {
-  background-color: #334582;
+  margin: 0;
+  background-color: #002492;
   border-radius: 16px;
   padding: 18px 30px;
   display: flex;
@@ -203,26 +204,4 @@ function fecharTooltip() {
   transform: translateX(-50%) translateY(-6px);
 }
 
-@media (max-width: 800px) {
-  .servicos-faixa {
-    justify-content: center;
-  }
-
-  .tooltip {
-    min-width: 200px;
-    left: auto;
-    right: -20px;
-    transform: none;
-  }
-
-  .tooltip .seta {
-    left: auto;
-    right: 30px;
-  }
-
-  .tooltip-fade-enter-from,
-  .tooltip-fade-leave-to {
-    transform: translateY(-6px);
-  }
-}
 </style>
