@@ -21,6 +21,7 @@ class="buscar"
   color: #334582;
 }
 .buscar::placeholder{
+  padding-left: 5px;
 color: #334582;
 }
 input:focus{

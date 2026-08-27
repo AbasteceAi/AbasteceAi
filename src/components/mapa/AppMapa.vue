@@ -1,7 +1,6 @@
 <script setup>
 import {ref, onMounted, computed} from 'vue'
-import { buscarPostos, obterLoc, ordenarPorDistancia } from '@/services/postos';
-import PostoSide from './PostoSide.vue';
+import { buscarPostos, obterLoc, ordenarPorDistancia, extrairBairro } from '@/services/postos';import PostoSide from './PostoSide.vue';
 import LMap from './LMap.vue';
 import FiltroCombustivel from './FiltroCombustivel.vue';
 import FiltroNome from './FiltroNome.vue';
@@ -11,17 +10,24 @@ const combustivelSelecionado = ref('')
 const postoSel = ref(null)
 const buscaNome = ref('')
 
+const bairroSelecionado = ref('')
+const bairros = computed(() => {
+  const lista = postos.value.map(p => extrairBairro(p.endereco)).filter(Boolean)
+  return [...new Set(lista)].sort()
+})
 const postosFiltrados = computed(() => {
   let resultado = postos.value;
-  if( buscaNome.value.trim()){
+  if (buscaNome.value.trim()) {
     const termo = buscaNome.value.toLowerCase()
     resultado = resultado.filter(p => p.nome.toLowerCase().includes(termo))
   }
   if (combustivelSelecionado.value) {
-  resultado = resultado.filter(p =>
-    p.precos?.some(preco => preco.tipo_combustivel.toLowerCase() === combustivelSelecionado.value.toLowerCase()))
+    resultado = resultado.filter(p =>
+      p.precos?.some(preco => preco.tipo_combustivel.toLowerCase() === combustivelSelecionado.value.toLowerCase()))
   }
-
+  if (bairroSelecionado.value) {
+    resultado = resultado.filter(p => extrairBairro(p.endereco) === bairroSelecionado.value)
+  }
   return resultado
 })
 
@@ -51,8 +57,14 @@ onMounted(carregar)
 <div class="grid">
     <section class="side">
 <div class="filtros">
-<FiltroNome v-model="buscaNome" class="nomeF"/>
-<FiltroCombustivel v-model="combustivelSelecionado" class="filtroComb"/>
+  <FiltroNome v-model="buscaNome" class="nomeF"/>
+  <FiltroCombustivel v-model="combustivelSelecionado" class="filtroComb"/>
+  <select v-model="bairroSelecionado" class="filtroBairro">
+    <option value="">Todos os bairros</option>
+    <option v-for="bairro in bairros" :key="bairro" :value="bairro">
+      {{ bairro }}
+    </option>
+  </select>
 </div>
       <div v-if="carregando"  ><img src="/imgs/perso.gif" class="gif"  alt=""></div>
       <div v-else-if="postosFiltrados.length === 0"> Posto não encontrado</div>
@@ -86,7 +98,7 @@ main{
     }
     .side{
   background-color: #334582;
-  width: 98%;
+  width: 98%; 
   height: 95vh;
   margin: 5px;
   border-radius: 20px;
@@ -107,12 +119,12 @@ main{
   position: relative;
 }
 .nomeF{
-  width: 80%;
+  flex: 1;
+  min-width: 0;
 }
 .filtroComb{
   position: absolute;
   text-align: end;
- 
   top: 0;
  right: 0;
 }
@@ -123,4 +135,15 @@ main{
  justify-content: center;
  margin: 0 auto;
   }
+ .filtroBairro{
+  background-color: #FEC12B;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 5px;
+  height: 40px;
+  color: #002492;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 50px;
+}
 </style>
