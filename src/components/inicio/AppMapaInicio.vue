@@ -19,7 +19,7 @@ import { RouterLink } from 'vue-router'
   cursor: pointer;
   background-color: #FEC12B;
   padding: 20px;
-  border-radius: 20px;
+  border-radius: 6px;
   max-width: 1100px;
   margin: 40px auto;
   text-align: center;

@@ -43,7 +43,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: stretch;
-  gap: 200px;
+  gap: 120px;
 }
 
 .card {
