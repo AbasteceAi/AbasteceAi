@@ -81,7 +81,7 @@ export function obterLoc() {
       }),
       reject
     )
-  })
+  })  
 }
 
 export function ordenarPorDistancia(postos, userLat, userLng) {

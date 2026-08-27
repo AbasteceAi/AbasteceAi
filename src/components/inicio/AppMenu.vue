@@ -10,11 +10,11 @@ import { RouterLink } from 'vue-router'
       <RouterLink to="/favoritos" class="botao">Acessar Favoritos</RouterLink>
     </div>
 
-    <img src="/imgs/pereTronco.png" alt="Boneco posto" class="boneco" />
+    <img src="/imgs/bonecoBracosCortado.png" alt="Boneco posto" class="boneco" />
     <div class="card">
+      <RouterLink to="/perfil" class="botao">Acessar Perfil</RouterLink>
       <RouterLink to="/cadastro" class="botao">Cadastrar-se</RouterLink>
       <RouterLink to="/login" class="botao">Login</RouterLink>
-      <RouterLink to="/suporte" class="botao">Suporte</RouterLink>
     </div>
   </section>
 </template>
@@ -60,7 +60,7 @@ import { RouterLink } from 'vue-router'
 .boneco {
   position: absolute;
   bottom: 0;
-  width: 300px;
+  width: 400px;
   z-index: 2;
 }
 </style>
