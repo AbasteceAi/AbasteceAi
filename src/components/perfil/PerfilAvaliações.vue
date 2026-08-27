@@ -17,7 +17,12 @@ onMounted(async () => {
 
 </script>
 <template>
-<div>
+<div class="avaliacoes">
+   <h1>Avaliações Recentes</h1>
+  <div v-if="carregando"><img src="/imgs/perso.gif" ></div>
+  <div v-else>
+
+  </div>
 </div>
 </template>
 <style scoped>
