@@ -112,21 +112,20 @@ main{
     padding: 60px 60px 0 60px;
   }
 .filtros {
-  display: flex;
+   display: grid;
+  grid-template-columns: 1fr auto auto;
   gap: 15px;
   align-items: center;
   margin: 15px;
-  position: relative;
 }
-.nomeF{
-  flex: 1;
-  min-width: 0;
+.nomeF {
+  grid-column: 1;
+  grid-row: 1;
 }
-.filtroComb{
-  position: absolute;
-  text-align: end;
-  top: 0;
- right: 0;
+.filtroComb {
+ grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
 }
 .gif{
   width: 80%;
@@ -144,6 +143,9 @@ main{
   color: #002492;
   font-weight: bold;
   cursor: pointer;
-  margin-right: 50px;
+    grid-column: 2;
+  grid-row: 1;
+  margin-right: 0;
+    
 }
 </style>

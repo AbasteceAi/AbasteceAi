@@ -44,13 +44,22 @@ function selecionar(tipo){
   padding: 5px;
   height: 40px;
   border-radius: 5px;
+  color: #002492;
 }
 .lista{
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  z-index: 10;
   background-color: #FEC12B;
   list-style: none;
-  border-radius: 2px;
-  margin-top: -4px;
+  border-radius: 5px;
+  margin-top: 0;
   color: #002492;
   padding: 8px;
+  min-width: 160px;
+}
+.filtro-combustivel{
+  position: relative;
 }
 </style>

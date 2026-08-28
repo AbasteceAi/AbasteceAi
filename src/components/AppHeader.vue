@@ -36,10 +36,10 @@ function selecionarResultado(resultado) {
 
 <template>
   <header class="header">
-    <div to="/" class="logo">
+     <RouterLink to="/" class="logo">
       <img src="/imgs/logo.png" alt="Logo Abastece Aí" />
       <span>Abastece Aí</span>
-    </div>
+    </RouterLink>
     <div class="nav-container">
     <nav class="nav">
       <RouterLink to="/">INÍCIO</RouterLink>
