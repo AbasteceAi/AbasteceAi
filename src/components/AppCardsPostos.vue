@@ -114,6 +114,7 @@ watch(() => props.postos, () => {
 }
 
 .posto-card {
+  padding: 0 10px 0 0;
   display: flex;
   width: 100%;
   min-height: 142px;

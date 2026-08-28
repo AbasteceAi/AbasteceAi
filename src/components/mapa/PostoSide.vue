@@ -71,6 +71,7 @@ function precoDoTipo() {
     padding-top: 0;
     margin: 10px;
     padding-bottom: 5px;
+    
 }
 
 .faixa {
