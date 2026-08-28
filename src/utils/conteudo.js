@@ -20,7 +20,9 @@ export function mostrarConteudo(ponto, combustivelSelecionado) {
         </span> ${ponto.distancia.toFixed(1)}km</p>`
     : ""
 
-  const precoSelecionado = ponto.precos?.find(p => p.tipo_combustivel === combustivelSelecionado)
+  const precoSelecionado = combustivelSelecionado
+    ? ponto.precos?.find(p => p.tipo_combustivel === combustivelSelecionado)
+    : (ponto.precos?.find(p => p.tipo_combustivel.toLowerCase() === 'gasolina comum') ?? ponto.precos?.[0])
   const precoHtml = precoSelecionado
     ? `<div class="linha-preco">
         <span class="tipo">${precoSelecionado.tipo_combustivel.charAt(0).toUpperCase()+ precoSelecionado.tipo_combustivel.slice(1)}</span>
