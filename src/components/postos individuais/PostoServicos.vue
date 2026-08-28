@@ -4,33 +4,7 @@ import { ref } from 'vue'
 defineProps({
   servicos: {
     type: Array,
-    default: () => [
-      {
-        id: 'mecanica',
-        icone: 'mecanica',
-        itens: [
-          'Calibragem de pneus',
-          'Troca e verificação de água e óleo',
-          'Borracharia (ou oficinas básicas)',
-          'Ponto de recarga para carros elétricos',
-        ],
-      },
-      {
-        id: 'loja',
-        icone: 'loja',
-        itens: ['Loja de conveniência', 'Cafeteria (ou restaurante)', 'Caixas eletrônicos 24H'],
-      },
-      {
-        id: 'limpeza',
-        icone: 'limpeza',
-        itens: ['Limpeza de para-brisas', 'Lava-jato'],
-      },
-      {
-        id: 'banheiro',
-        icone: 'banheiro',
-        itens: ['Banheiros', 'Chuveiros'],
-      },
-    ],
+    default: () => [],
   },
 })
 
@@ -48,7 +22,10 @@ function fecharTooltip() {
 
 <template>
   <section class="servicos">
-    <div class="servicos-faixa">
+    <div v-if="servicos.length === 0" class="sem-servicos">
+      Nenhum serviço cadastrado para este posto ainda.
+    </div>
+    <div v-else class="servicos-faixa">
       <div
         v-for="s in servicos"
         :key="s.id"
@@ -96,6 +73,17 @@ function fecharTooltip() {
 </template>
 
 <style scoped>
+.sem-servicos {
+  margin: 10px 0 50px;
+  background-color: #f4f5fa;
+  border: 1px dashed #334582;
+  border-radius: 16px;
+  padding: 22px 30px;
+  color: #334582;
+  font-weight: 600;
+  text-align: center;
+}
+
 .servicos {
   margin: 10px 0 50px;
 }
