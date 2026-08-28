@@ -2,19 +2,25 @@
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { supabase } from '@/data/supabaseClient.js'
-import PostoBanner from '@/components/postos/PostoBanner.vue'
-import PostoServicos from '@/components/postos/PostoServicos.vue'
-import PostoAvaliacao from '@/components/postos/PostoAvaliacao.vue'
-import ModalAvaliacaoPreco from '@/components/posto/ModalAvaliacao.vue'
+import PostoBanner from '@/components/postos individuais/PostoBanner.vue'
+import PostoServicos from '@/components/postos individuais/PostoServicos.vue'
+import PostoAvaliacao from '@/components/postos individuais/PostoAvaliacao.vue'
+import ModalAvaliacao from '@/components/postos individuais/ModalAvaliacao.vue'
 import { adicionarFavorito, removerFavorito, ehFavorito } from '@/services/favoritos'
+import { usuarioAtual } from '@/services/auth.js'
+import { buscarAvaliacoesDoPosto } from '@/services/avaliacoes.js'
+import { buscarServicosDoPosto } from '@/services/servicos.js'
 
  const route = useRoute()
  const posto = ref(null)
 const carregando = ref(true)
-
+const usuarioLogadoId = ref(null)
 
 const favorito = ref(false)
 onMounted(async () => {
+  const usuario = await usuarioAtual()
+  usuarioLogadoId.value = usuario?.id ?? null
+
   await carregarPosto()
   favorito.value = await ehFavorito(route.params.id)
 })
@@ -45,7 +51,7 @@ async function carregarPosto() {
 
   const { data, error } = await supabase
     .from('postos')
-    .select(`*, avaliacoes (nota, comentario), precos (tipo_combustivel, preco_litro)`)
+    .select(`*, avaliacoes (nota), precos (tipo_combustivel, preco_litro)`)
     .eq('id', id)
     .single()
 
@@ -61,12 +67,15 @@ async function carregarPosto() {
       mediaAvaliacao: media,
       totalAvaliacoes: notas.length
     }
-    avaliacoes.value = data.avaliacoes ?? []
+
+    avaliacoes.value = await buscarAvaliacoesDoPosto(id, usuarioLogadoId.value)
+    servicos.value = await buscarServicosDoPosto(id)
   }
   carregando.value = false
 }
 
 const avaliacoes = ref([])
+const servicos = ref([])
 </script>
 
 <template>
@@ -79,11 +88,11 @@ const avaliacoes = ref([])
   <div  v-else-if="posto">
    <PostoBanner :posto="posto" :favorito="favorito" @favoritar="alternarFavorito" @avaliar="irParaAvaliar" />
 
-    <PostoServicos />
+    <PostoServicos :servicos="servicos" />
 
-    <PostoAvaliacao :avaliacoes="avaliacoes" />
+    <PostoAvaliacao :avaliacoes="avaliacoes" :usuario-atual-id="usuarioLogadoId" />
 
-    <ModalAvaliacaoPreco
+    <ModalAvaliacao
       v-model="modalAvaliacaoAberto"
       :posto="posto"
       @salvo="aoSalvarAvaliacaoOuPreco"

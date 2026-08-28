@@ -87,9 +87,9 @@ watch (() => props.postoSel, (posto) => {
 :deep(.contMapa){
   display: flex;
   flex-direction: column;
- margin: 5px;
- border-left: 2px solid #002492;
- padding-left: 5px;
+ margin: 7px 10px;
+ border-left: 3px solid #002492;
+ padding: 10px;
 
 }
 :deep(.cont1){

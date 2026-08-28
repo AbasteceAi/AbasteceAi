@@ -2,7 +2,10 @@
 const props = defineProps(['posto', 'combustivelSel']);
 const emit = defineEmits(['clique'])
 function precoDoTipo() {
-  if (!props.combustivelSel) return props.posto.precos?.[0]
+  if (!props.combustivelSel) {
+    return props.posto.precos?.find(p => p.tipo_combustivel.toLowerCase() === 'gasolina comum')
+      ?? props.posto.precos?.[0]
+  }
   return props.posto.precos?.find(p => p.tipo_combustivel.toLowerCase() === props.combustivelSel.toLowerCase())
 }
 </script>
@@ -71,6 +74,7 @@ function precoDoTipo() {
     padding-top: 0;
     margin: 10px;
     padding-bottom: 5px;
+    
 }
 
 .faixa {
