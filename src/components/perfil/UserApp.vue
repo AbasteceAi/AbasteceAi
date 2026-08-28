@@ -49,43 +49,167 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-.perfil-container{
+
+* {
+  box-sizing: border-box;
+}
+
+.perfil-container {
   display: flex;
   align-items: center;
-  margin: 20px;
-}
-.fotoConta{
-  position: relative;
-}
-.edit{
-  position: absolute;
-  background-color:#FEC12B ;
-  padding: 10px;
-  bottom: 5px;
- border-radius: 50%;
-
-}
-.editIcon{
-  width: 30px;
-  height: 30px;
-}
-.foto{
-  width: 50%;
-  border-radius: 50%;
-  border: 5px solid #FEC12B;
-}
-.nome {
-  font-size: 3rem;
+  gap: 20px;
+  width: 85%;
+  margin: 80px auto 15px;
   color: #334582;
-  font-weight: bold;
 }
-.ponto{
-  height: 10px;
-  width: 10px;
-   fill: #002492;
+
+.fotoConta {
+  position: relative;
+  width: 155px;
+  height: 155px;
+  flex-shrink: 0;
 }
-.ava{
+
+.foto {
+  width: 155px;
+  height: 155px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #fec12b;
+  display: block;
+}
+
+.semFto {
+  width: 155px;
+  height: 155px;
+  border-radius: 50%;
+  border: 2px solid #fec12b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ddd;
+  color: #334582;
+  font-size: 16px;
+}
+
+.edit {
+  position: absolute;
+  right: 3px;
+  bottom: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fec12b;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.edit:hover {
+  transform: scale(1.08);
+}
+
+.editIcon {
+  width: 17px;
+  height: 17px;
+}
+
+.nome {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #334582;
+}
+
+.nome > p:first-child {
+  margin: 0 0 2px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.ava {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  font-size: 17px;
+  font-weight: 400;
+  color: #222;
+}
+
+.ponto {
+  width: 8px;
+  height: 8px;
+  fill: #002492;
+  display: block;
+}
+
+.avaliacoes-container {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.titulo-avaliacoes {
+  margin: 0 0 15px 8px;
+  color: #273866;
   font-size: 20px;
- color: rgba(0, 0, 0, 0.753);
+  font-weight: 700;
+}
+
+.avaliacao-card {
+  width: 100%;
+  min-height: 87px;
+  margin-bottom: 38px;
+  padding: 12px 25px;
+  display: flex;
+  align-items: center;
+  background-color: #384e8c;
+  border-radius: 20px;
+  color: white;
+}
+
+.logo-posto {
+  width: 62px;
+  height: 62px;
+  margin-right: 25px;
+  border-radius: 50%;
+  object-fit: contain;
+}
+
+.avaliacao-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.nome-posto {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 4px;
+  font-size: 23px;
+  font-weight: 700;
+}
+
+.estrelas {
+  font-size: 22px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.comentario {
+  max-width: 650px;
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.4;
+  color: white;
+}
+
+.data {
+  align-self: flex-start;
+  margin-left: 20px;
+  font-size: 16px;
+  white-space: nowrap;
 }
 </style>
