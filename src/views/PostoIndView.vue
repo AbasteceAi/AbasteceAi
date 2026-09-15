@@ -47,7 +47,7 @@ function aoSalvarAvaliacaoOuPreco() {
 }
 
 async function carregarPosto() {
-  const id = route.params.id
+  const id = route.params.id?.trim()
 
   const { data, error } = await supabase
     .from('postos')

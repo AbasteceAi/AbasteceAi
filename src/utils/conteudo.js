@@ -19,10 +19,10 @@ export function mostrarConteudo(ponto, combustivelSelecionado) {
     ? `<p class="distancia"> <span> <svg fill="#FEC12B" class="sim"   viewBox="0 0 24 24" class="cursor" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg"><path  d="M21.4,2.6a2,2,0,0,0-2.27-.42h0L3.2,9.4A2,2,0,0,0,2,11.52a2.26,2.26,0,0,0,1.8,2l5.58,1.13,1.13,5.58a2.26,2.26,0,0,0,2,1.8h.25a2,2,0,0,0,1.87-1.2L21.82,4.87A2,2,0,0,0,21.4,2.6Z" style="fill:#FEC12B;"></path></svg>
         </span> ${ponto.distancia.toFixed(1)}km</p>`
     : ""
-
+const normalizar = (str) => str?.trim().toLowerCase()
   const precoSelecionado = combustivelSelecionado
-    ? ponto.precos?.find(p => p.tipo_combustivel === combustivelSelecionado)
-    : (ponto.precos?.find(p => p.tipo_combustivel.toLowerCase() === 'gasolina comum') ?? ponto.precos?.[0])
+    ? ponto.precos?.find(p => normalizar(p.tipo_combustivel) === normalizar(combustivelSelecionado))
+    : (ponto.precos?.find(p => normalizar (p.tipo_combustivel) === 'gasolina comum') ?? ponto.precos?.[0])
   const precoHtml = precoSelecionado
     ? `<div class="linha-preco">
         <span class="tipo">${precoSelecionado.tipo_combustivel.charAt(0).toUpperCase()+ precoSelecionado.tipo_combustivel.slice(1)}</span>
@@ -35,7 +35,9 @@ export function mostrarConteudo(ponto, combustivelSelecionado) {
     <div class="contMapa">
       <div class="cont1">
         <img src="${ponto.foto_url}" class="img">
-        <h3>${ponto.nome}</h3>
+         <a href="/posto/${ponto.id}" class="link-posto" data-posto-id="${ponto.id}">
+         <h3>${ponto.nome}</h3>
+         </a>
         ${statusHtml}
       </div>
       <div class="cont2">

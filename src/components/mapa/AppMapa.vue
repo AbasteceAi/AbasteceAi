@@ -79,7 +79,7 @@ onMounted(carregar)
       </div>
 </section>
 <section>
- <LMap :postos="postosFiltrados" :combustivel-sel="combustivelSelecionado" :posto-sel="postoSel"/>
+ <LMap :postos="postosFiltrados" :combustivel-sel="combustivelSelecionado" :posto-sel="postoSel" style="height: 95vh; width: 100%; "/>
 </section>
 </div>
       </main>
@@ -88,7 +88,7 @@ onMounted(carregar)
 main{
     height: 100%;
     background-color: #1E3068;
-    
+
 }
    .grid {
     display: grid;
@@ -98,7 +98,7 @@ main{
     }
     .side{
   background-color: #334582;
-  width: 98%; 
+  width: 98%;
   height: 95vh;
   margin: 5px;
   border-radius: 20px;
@@ -146,6 +146,6 @@ main{
     grid-column: 2;
   grid-row: 1;
   margin-right: 0;
-    
+
 }
 </style>
