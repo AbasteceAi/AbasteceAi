@@ -90,7 +90,7 @@ onMounted(carregar)
         </div>
       </div>
       <div>
-       <RouterLink :to="`/posto/${posto.id}`">Acesse a página do posto</RouterLink>
+       <RouterLink :to="`/posto/${posto.id}`" class="btn">Acesse a página do posto</RouterLink>
       </div>
       </div>
   <LMap  :postos="maisProximo" class="mapa" />
@@ -124,7 +124,7 @@ onMounted(carregar)
   grid-template-columns: 1fr 500px;
   background: #F5F7FF;
   border-radius: 60px 0 0 60px;
-  box-shadow:5px 5px 10px 4px   ;
+  box-shadow:2px 2px 20px 2px   ;
 }
 .text{
   margin: 20px;
@@ -132,7 +132,7 @@ onMounted(carregar)
 
 }
 .mapa{
-  height: 50vh;
+  height: 100%;
 }
 .precos {
     display: flex;
@@ -145,24 +145,25 @@ onMounted(carregar)
   flex-direction: column;
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 5px;
   background: white;
   border: 2px solid #1748b0;
   border-radius: 10px;
   padding: 6px 12px;
   min-width: 70px;
+  box-shadow: 1px 2px 6px 1px ;
 }
 
 .preco-box .tipo {
-  font-size: 15px;
+  font-size: 25px;
   line-height: 14px;
   font-weight: 700;
   color: #1748b0;
 }
 
 .preco-box span {
-  font-size: 15px;
-  line-height: 17px;
+  font-size: 25px;
+  line-height: 25px;
   font-weight: 700;
   color: #f5a623;
 }
@@ -208,5 +209,17 @@ onMounted(carregar)
   color: #f5a623;
   font-size: 2rem;
 }
-
+.btn {
+  text-decoration: none;
+  margin: 2vw auto;
+ text-align: center;
+ display:block ;
+ color: #FEC12B;
+ background-color: #002492;
+ font-weight: 700;
+ font-size: 20px;
+ padding: 20px 30px;
+ width: fit-content;
+ border-radius: 15px;
+}
 </style>
