@@ -32,10 +32,11 @@ onMounted(carregar)
       <div v-for="posto in maisProximo" :key="posto.id" class="posto-card">
  <div class="cont">
       <div class="text">
-      <p>O Posto mais próximo de você</p>
+      <p class="esta">O Posto mais próximo de você</p>
       <div class="imgTi">
-      <img :src="posto.foto_url" >
+      <img :src="posto.foto_url"  class="img">
       <div>
+      <div class="titulo">
       <h3>{{ posto.nome }}</h3>
             <div>
        <p v-if="posto.aberto === true" class="status aberto"> <span>
@@ -47,6 +48,9 @@ onMounted(carregar)
 </svg></span> Fechado </p>
             <p v-else class="status desconhecido"><span></span> Horário não disponível</p>
             </div>
+
+</div>
+ <div class="dis">
             <p>
             <span>
             <svg version="1.0" xmlns="http://www.w3.org/2000/svg" class="locE"
@@ -69,9 +73,11 @@ onMounted(carregar)
 </svg>
             </span>
             {{ posto.endereco }}</p>
+</div>
+             </div>
+
       </div>
-      </div>
-      <div>
+      <div class="distancia">
        <p><svg fill="#FEC12B"  viewBox="0 0 24 24" class="cursor" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg"><path id="primary" d="M21.4,2.6a2,2,0,0,0-2.27-.42h0L3.2,9.4A2,2,0,0,0,2,11.52a2.26,2.26,0,0,0,1.8,2l5.58,1.13,1.13,5.58a2.26,2.26,0,0,0,2,1.8h.25a2,2,0,0,0,1.87-1.2L21.82,4.87A2,2,0,0,0,21.4,2.6Z" style="fill:#FEC12B;"></path></svg></P>
         <p>
           Este posto está a <span>{{ posto.distancia.toFixed(2) }} Km</span> de distância
@@ -118,6 +124,7 @@ onMounted(carregar)
   grid-template-columns: 1fr 500px;
   background: #F5F7FF;
   border-radius: 60px 0 0 60px;
+  box-shadow:5px 5px 10px 4px   ;
 }
 .text{
   margin: 20px;
@@ -159,6 +166,47 @@ onMounted(carregar)
   font-weight: 700;
   color: #f5a623;
 }
+.img{
+  height: 100px;
+}
+.imgTi{
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
+}
+ .titulo{
+  display: flex;
+  gap: 10px;
+ }
+.titulo h3 {
+  font-size: 2rem;
+}
+.esta{
+  font-size: 20px;
+  color: #f5a623;
+  font-weight: 800;
+  margin: 1vw 0px;
+}
+.dis p{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  gap: 4px;
+}
+.distancia{
+  display: flex;
+  margin: 2vw auto;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: 600;
+}
+.distancia p span{
+  color: #f5a623;
+  font-size: 2rem;
+}
 
 </style>
