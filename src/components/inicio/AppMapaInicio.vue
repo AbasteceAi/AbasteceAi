@@ -117,6 +117,13 @@ onMounted(carregar)
   padding: 0 0 0 25px;
   background-color: #334582;
   border-radius: 60px;
+  animation: fade-in linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 30%;
+}
+@keyframes fade-in {
+  from { opacity: 0.5; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0px); }
 }
 .cont{
   width: 100%;
