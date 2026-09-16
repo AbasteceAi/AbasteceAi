@@ -83,7 +83,7 @@ const servicos = ref([])
 
   <main class="posto-page">
   <div v-if="carregando">
-    carregando
+    <img src="/imgs/perso.gif" >
   </div>
   <div  v-else-if="posto">
    <PostoBanner :posto="posto" :favorito="favorito" @favoritar="alternarFavorito" @avaliar="irParaAvaliar" />
