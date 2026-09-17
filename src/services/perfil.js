@@ -11,6 +11,15 @@ export async function buscarPerfil(userId) {
   return data
 }
 
+export async function atualizarPerfil(userId, { nome }) {
+  const { error } = await supabase
+    .from('perfil')
+    .update({ nome })
+    .eq('id', userId)
+
+  if (error) throw error
+}
+
 export async function atualizarNome(userId, nome) {
   const { error } = await supabase
     .from('perfil')

@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { usuarioAtual } from '@/services/auth'
-import { buscarPerfil, atualizarNome, uploadFotoPerfil } from '@/services/perfil'
+import { buscarPerfil, atualizarPerfil, uploadFotoPerfil } from '@/services/perfil'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -27,14 +27,14 @@ onMounted(async () => {
   carregando.value = false
 })
 
-async function salvarNome() {
+async function salvar() {
   erro.value = ''
   mensagem.value = ''
   salvando.value = true
 
   try {
-    await atualizarNome(userId.value, nome.value)
-    mensagem.value = 'Nome atualizado!'
+    await atualizarPerfil(userId.value, { nome: nome.value })
+    mensagem.value = 'Alterações salvas!'
   } catch (e) {
     erro.value = e.message
   } finally {
@@ -64,205 +64,290 @@ function voltar() {
 </script>
 
 <template>
-  <div v-if="carregando" class="carregando">Carregando perfil...</div>
+  <main class="pagina">
+    <div v-if="carregando" class="carregando"><img src="/imgs/perso.gif" alt="Carregando" /></div>
 
-  <div v-else class="perfil-container">
-    <h1 class="editTit">Editar Perfil</h1>
+    <div v-else class="cartao">
+      <div class="topo">
+        <button type="button" class="btn-voltar" @click="voltar" aria-label="Voltar">
+          <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
+        </button>
 
-    <div class="foto-section">
-      <div class="foto-wrapper">
-        <img v-if="fotoUrl" :src="fotoUrl" alt="Foto de perfil" class="foto-perfil" />
-        <div v-else class="foto-placeholder">Sem foto</div>
+        <h1 class="titulo">Editar perfil</h1>
       </div>
 
-      <label class="btn-trocar">
-        {{ enviandoFoto ? 'Salvando..' : 'Trocar foto' }}
-        <input type="file" accept="image/*" @change="handleFotoChange" :disabled="enviandoFoto" hidden />
-      </label>
-    </div>
+      <div class="area-foto">
+        <div class="moldura-foto">
+          <img v-if="fotoUrl" :src="fotoUrl" alt="Foto de perfil" class="foto" />
+          <div v-else class="sem-foto"></div>
 
-    <div class="nome-section">
-      <label for="nome">Nome</label>
-      <input id="nome" v-model="nome" type="text" placeholder="Seu nome" class="nomePlace" />
-      <button @click="salvarNome" :disabled="salvando" class="btn-salvar">
-        {{ salvando ? 'Salvando...' : 'Salvar nome' }}
+          <label class="btn-camera" :title="enviandoFoto ? 'Enviando...' : 'Trocar foto'">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
+              />
+              <circle cx="12" cy="13" r="4" />
+            </svg>
+            <input
+              type="file"
+              accept="image/*"
+              @change="handleFotoChange"
+              :disabled="enviandoFoto"
+              hidden
+            />
+          </label>
+        </div>
+
+        <label class="link-alterar">
+          {{ enviandoFoto ? 'Enviando foto...' : 'Alterar foto' }}
+          <input
+            type="file"
+            accept="image/*"
+            @change="handleFotoChange"
+            :disabled="enviandoFoto"
+            hidden
+          />
+        </label>
+      </div>
+
+      <div class="campos">
+        <label class="campo">
+          <span>Nome</span>
+          <input v-model="nome" type="text" placeholder="Seu nome" />
+        </label>
+      </div>
+
+      <p v-if="mensagem" class="sucesso">{{ mensagem }}</p>
+      <p v-if="erro" class="erro">{{ erro }}</p>
+
+      <button type="button" class="btn-salvar" :disabled="salvando" @click="salvar">
+        {{ salvando ? 'Salvando...' : 'Salvar alterações' }}
       </button>
     </div>
-
-    <p v-if="mensagem" class="sucesso">{{ mensagem }}</p>
-    <p v-if="erro" class="erro">{{ erro }}</p>
-
-    <button class="btn-voltar" @click="voltar">Voltar</button>
-  </div>
+  </main>
 </template>
 
 <style scoped>
-
-.perfil-container {
-  min-height: 100vh;
-  padding: 25px 40px 40px;
+* {
   box-sizing: border-box;
-  background: #fff;
+}
+
+.pagina {
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 70px 20px;
+  background-color: #ffffff;
 }
 
-.editTit {
-  color: #334582;
-  margin: 0 0 30px;
-  font-size: 2rem;
-  font-weight: 700;
+.carregando {
+  display: flex;
+  justify-content: center;
+  padding: 60px 0;
 }
 
-.foto-section {
+.cartao {
   width: 100%;
-  max-width: 900px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.foto-wrapper {
-  width: 420px;
-  height: 420px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border-radius: 50%;
-}
-
-.foto-perfil {
-  width: 80%;
-  height: 80%;
-  object-fit: cover;
-  border-radius: 50%;
-  display: block;
-}
-
-.foto-placeholder {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #eef1f8;
-  color: #334582;
-  font-size: 1.2rem;
-}
-
-.btn-trocar {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  max-width: 460px;
   background-color: #334582;
-  color: white;
-  padding: 11px 18px;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-weight: 500;
+  border-radius: 20px;
+  overflow: hidden;
+  padding-bottom: 32px;
+  box-shadow: 0 18px 40px rgba(0, 36, 146, 0.22);
+}
+
+.topo {
+  position: relative;
+  height: 100px;
+  background: linear-gradient(100deg, #002492 20%, #334582 42%, #fec12b 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.titulo {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.btn-voltar {
+  position: absolute;
+  left: 16px;
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: 0.2s ease;
 }
 
-.btn-trocar:hover {
-  background-color: #26366d;
-  transform: translateY(-1px);
+.btn-voltar:hover {
+  background-color: rgba(255, 255, 255, 0.38);
 }
 
-.btn-trocar input {
-  display: none;
+.btn-voltar svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-.nome-section {
-  width: 100%;
-  max-width: 900px;
-  margin: 30px 160px;
+.area-foto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.moldura-foto {
+  position: relative;
+  width: 112px;
+  height: 112px;
+}
+
+.foto,
+.sem-foto {
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  border: 4px solid #fec12b;
+  object-fit: cover;
+  display: block;
+  background-color: #4a5a99;
+}
+
+.btn-camera {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: #fec12b;
+  border: 2px solid #334582;
   display: flex;
   align-items: center;
-  gap: 12px;
-  color: #334582;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.2s ease;
 }
 
-.nome-section label {
-  font-size: 2rem;
-  font-weight: 400;
+.btn-camera:hover {
+  transform: scale(1.08);
 }
 
-.nomePlace {
-  width: 190px;
-  height: 38px;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 7px 12px;
-  border: 2px solid #334582;
-  border-radius: 20px;
-  font-size: 1rem;
+.btn-camera svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: #002492;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.link-alterar {
+  margin-top: 12px;
+  color: #fec12b;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.link-alterar:hover {
+  text-decoration: underline;
+}
+
+.campos {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 28px 32px 0;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.campo span {
+  font-size: 14px;
+  font-weight: 600;
+  color: #dfe3f2;
+}
+
+.campo input {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1px solid #4a5a99;
+  border-radius: 10px;
+  background-color: #2a3a6f;
+  color: #ffffff;
+  font-size: 15px;
+  font-family: inherit;
   outline: none;
   transition: 0.2s ease;
 }
 
-.nomePlace:focus {
-  border-color: #26366d;
-  box-shadow: 0 0 0 3px rgba(51, 69, 130, 0.12);
+.campo input::placeholder {
+  color: #9aa6ce;
+}
+
+.campo input:focus {
+  border-color: #fec12b;
+  box-shadow: 0 0 0 3px rgba(254, 193, 43, 0.22);
+}
+
+.sucesso,
+.erro {
+  margin: 16px 32px 0;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.sucesso {
+  color: #9ff0b0;
+}
+
+.erro {
+  color: #ffb4b4;
 }
 
 .btn-salvar {
-  height: 38px;
-  padding: 0 16px;
-  border-radius: 20px;
-  border: 2px solid #334582;
-  background-color: white;
-  color: #334582;
-  font-size: 0.95rem;
+  display: block;
+  width: calc(100% - 64px);
+  margin: 26px 32px 0;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background-color: #fec12b;
+  color: #002492;
+  font-size: 16px;
+  font-weight: 800;
+  font-family: inherit;
   cursor: pointer;
   transition: 0.2s ease;
 }
 
 .btn-salvar:hover:not(:disabled) {
-  background-color: #334582;
-  color: white;
+  background-color: #f5b719;
+  transform: translateY(-2px);
 }
 
 .btn-salvar:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
-
-.sucesso,
-.erro {
-  text-align: center;
-  font-size: 1rem;
-  margin: 18px 0;
-}
-
-.sucesso {
-  color: #2f7e3a;
-}
-
-.erro {
-  color: #7e2f2f;
-}
-
-.btn-voltar {
-  background-color: #fec12b;
-  color: #334582;
-  border: none;
-  border-radius: 10px;
-  padding: 14px 45px;
-  margin: 35px auto 0;
-  font-size: 1.2rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.btn-voltar:hover {
-  background-color: #f5b719;
-  transform: translateY(-2px);
-}
-
 </style>
