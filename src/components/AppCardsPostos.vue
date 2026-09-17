@@ -7,7 +7,7 @@ const props = defineProps({
 })
 
 const quantidadeVisivel = ref(6)
-
+const pagina = ref(1)
 const tiposDesejados = ['gasolina comum', 'gasolina aditivada', 'diesel s10']
 
 function precosFiltrados(posto) {
@@ -26,16 +26,20 @@ function precosFiltrados(posto) {
   return unicos
 }
 
-const postosVisiveis = computed(() => props.postos.slice(0, quantidadeVisivel.value))
-const temMaisPostos = computed(() => quantidadeVisivel.value < props.postos.length)
+const totalPaginas = computed(() =>
+  Math.ceil(props.postos.length / quantidadeVisivel.value)
+)
 
-function carregarMais() {
-  quantidadeVisivel.value += 6
-}
+const postosVisiveis = computed(() => {
+  const inicio = (pagina.value - 1) * quantidadeVisivel.value
+  return props.postos.slice(inicio, inicio + quantidadeVisivel.value)
+})
+
 
 watch(() => props.postos, () => {
-  quantidadeVisivel.value = 6
+  pagina.value = 1
 })
+
 </script>
 
 <template>
@@ -94,13 +98,19 @@ watch(() => props.postos, () => {
         </div>
       </div>
     </div>
-     <button
-     v-if="temMaisPostos"
-     class="btn-carregar-mais"
-     @click="carregarMais"
-    >
-     Carregar mais postos
-    </button>
+ <nav class="paginacao" v-if="totalPaginas != 1">
+   <button class="pagina-btn" :disabled="pagina === 1" @click="pagina--">Anterior</button>
+
+  <button
+    v-for="n in totalPaginas"
+    :key="n"
+     class="pagina-btn"
+    :class="{ ativa: n == pagina }"
+    @click="pagina = n"
+  >{{ n }}</button>
+
+  <button class="pagina-btn" :disabled="pagina === totalPaginas" @click="pagina++">Próxima</button>
+ </nav>
   </section>
 </template>
 
@@ -305,6 +315,36 @@ height: auto;
  justify-content: center;
  margin: 0 auto;
   }
+
+  .paginacao {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 25px;
+}
+
+.pagina-btn {
+  min-width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 8px;
+  background: #fff;
+  color: #1748b0;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+
+}
+
+.pagina-btn.ativa {
+  background: #1748b0;
+  color: #fec12b;
+}
+
+.pagina-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
 @media (max-width: 800px) {
 
   .postos-grid {

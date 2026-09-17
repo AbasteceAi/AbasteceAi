@@ -64,6 +64,11 @@ const router = createRouter({
       name:'PerfilEdit',
       component:PerfilEditView
     },
+     {
+      path: '/usuario/:id',
+      name:'UsuarioPublico',
+      component: () => import('@/views/UsuarioView.vue')
+    },
     {
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
@@ -89,4 +94,3 @@ router.beforeEach(async (to, from, next) => {
   next()
 })
 export default router
-

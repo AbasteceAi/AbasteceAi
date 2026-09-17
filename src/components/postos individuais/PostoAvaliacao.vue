@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
-import { atualizarAvaliacao, excluirAvaliacao } from '@/services/avaliacoes.js'
+import { atualizarAvaliacao, excluirAvaliacao, votarAvaliacao } from '@/services/avaliacoes.js'
+import { RouterLink } from 'vue-router'
 
 const props = defineProps({
   avaliacoes: {
@@ -37,7 +38,39 @@ function iniciaisDoNome(nome) {
   return (partes[0][0] + (partes[1]?.[0] ?? '')).toUpperCase()
 }
 
-// --- editar comentário/nota ---
+const votando = ref(null)
+
+async function votar(av, tipo) {
+  if (!props.usuarioAtualId || av.souAutor || votando.value) return
+
+  const votoAnterior = av.meuVoto
+  votando.value = av.id
+
+  try {
+    const novoVoto = await votarAvaliacao({
+      avaliacaoId: av.id,
+      userId: props.usuarioAtualId,
+      tipo,
+    })
+
+    if (votoAnterior === 'util') av.utilCount--
+    if (votoAnterior === 'inutil') av.inutilCount--
+    if (novoVoto === 'util') av.utilCount++
+    if (novoVoto === 'inutil') av.inutilCount++
+    av.meuVoto = novoVoto
+  } catch (e) {
+    console.error('Erro ao votar na avaliação:', e)
+  } finally {
+    votando.value = null
+  }
+}
+
+function tituloVoto(av, tipo) {
+  if (!props.usuarioAtualId) return 'Entre na sua conta para votar'
+  if (av.souAutor) return 'Você não pode votar na sua própria avaliação'
+  return tipo === 'util' ? 'Marcar como útil' : 'Marcar como inútil'
+}
+
 const idEmEdicao = ref(null)
 const notaEdicao = ref(0)
 const comentarioEdicao = ref('')
@@ -71,7 +104,6 @@ async function salvarEdicao(av) {
   }
 }
 
-// --- excluir ---
 async function excluir(av) {
   if (!confirm('Tem certeza que deseja excluir sua avaliação?')) return
 
@@ -96,7 +128,9 @@ async function excluir(av) {
 
           <div class="autor">
             <p class="nome">
-              {{ av.perfil?.nome ?? 'Usuário' }}
+              <RouterLink :to="`/usuario/${av.user_id}`" class="link-nome">
+                {{ av.perfil?.nome ?? 'Usuário' }}
+              </RouterLink>
               <span class="qtd">• {{ av.qtdAvaliacoesAutor }} avaliações</span>
             </p>
 
@@ -155,6 +189,40 @@ async function excluir(av) {
             @click="salvarEdicao(av)"
           >
             {{ salvandoEdicao ? 'Salvando...' : 'Salvar' }}
+          </button>
+        </div>
+
+        <div v-else class="votos">
+          <button
+            type="button"
+            class="voto util"
+            :class="{ marcado: av.meuVoto === 'util' }"
+            :disabled="!usuarioAtualId || av.souAutor"
+            :title="tituloVoto(av, 'util')"
+            @click="votar(av, 'util')"
+          >
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3m0 11h10.28a2 2 0 0 0 1.98-1.7l1.38-9A2 2 0 0 0 18.66 9H14V5a3 3 0 0 0-3-3l-4 9v11z"
+              />
+            </svg>
+            Útil ({{ av.utilCount }})
+          </button>
+
+          <button
+            type="button"
+            class="voto inutil"
+            :class="{ marcado: av.meuVoto === 'inutil' }"
+            :disabled="!usuarioAtualId || av.souAutor"
+            :title="tituloVoto(av, 'inutil')"
+            @click="votar(av, 'inutil')"
+          >
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M17 2h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-3m0-11H6.72a2 2 0 0 0-1.98 1.7l-1.38 9A2 2 0 0 0 5.34 15H10v4a3 3 0 0 0 3 3l4-9V2z"
+              />
+            </svg>
+            Inútil ({{ av.inutilCount }})
           </button>
         </div>
       </article>
@@ -231,6 +299,15 @@ async function excluir(av) {
   font-weight: 700;
   color: #002492;
   font-size: 15px;
+}
+
+.link-nome {
+  color: inherit;
+  text-decoration: none;
+}
+
+.link-nome:hover {
+  text-decoration: underline;
 }
 
 .qtd {
@@ -349,6 +426,64 @@ async function excluir(av) {
 
 .btn-salvar-edicao:disabled {
   opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.votos {
+  display: flex;
+  gap: 18px;
+  margin-top: 2px;
+}
+
+.voto {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  padding: 0;
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.voto svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.voto:hover:not(:disabled) {
+  color: #334582;
+}
+
+.voto.util.marcado {
+  color: #334582;
+}
+
+.voto.util.marcado svg {
+  fill: #fec12b;
+  stroke: #334582;
+}
+
+.voto.inutil.marcado {
+  color: #c62828;
+}
+
+.voto.inutil.marcado svg {
+  fill: #f6c9c9;
+  stroke: #c62828;
+}
+
+.voto:disabled {
+  opacity: 0.55;
   cursor: not-allowed;
 }
 

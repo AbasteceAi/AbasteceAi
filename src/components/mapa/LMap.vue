@@ -1,11 +1,11 @@
 <script setup>
 import { onMounted, watch } from "vue";
-
+import { useRouter } from "vue-router";
 import icon from '@/assets/icon/icon.png'
 import * as L from 'leaflet';
 import { mostrarConteudo } from "@/utils/conteudo";
 
-
+const router = useRouter()
 let mapa = null;
 
 const props = defineProps({
@@ -43,6 +43,15 @@ function adicionarMarcadores() {
       minWidth: 300,
       maxWidth: 400,
     })
+     marker.on('popupopen', () => {
+    const link = document.querySelector(`.link-posto[data-posto-id="${ponto.id}"]`)
+    if (link) {
+      link.addEventListener('click', (e) => {
+        e.preventDefault()
+        router.push(`/posto/${ponto.id}`)
+      })
+    }
+  })
     .addTo(mapa)
     marcadores.push(marker)
     marcadoresPorId[ponto.id] = marker
@@ -50,8 +59,10 @@ function adicionarMarcadores() {
 }
 onMounted(() => {
   const key = 'Irt1tqYSdhb5lRg6Gqq2';
+  const primeiro = props.postos[0]
+  const centro = primeiro ? [primeiro.latitude, primeiro.longitude] : [-26.3045, -48.8487]
 
-  mapa = L.map('map').setView([-26.3045, -48.8487], 14)
+  mapa = L.map('map').setView(centro, 14)
 
   L.tileLayer(`https://api.maptiler.com/maps/streets-v4-dark/{z}/{x}/{y}.png?key=${key}`, {
     tileSize: 512,
@@ -63,20 +74,24 @@ onMounted(() => {
   adicionarMarcadores()
 })
 watch (() => [props.postos, props.combustivelSel], () =>{
-  if (mapa) adicionarMarcadores ()
+  if (mapa){ adicionarMarcadores ()
+     if (props.postos[0] && marcadores.length === 1) {
+      mapa.setView([props.postos[0].latitude, props.postos[0].longitude], 14)
+    }
+  }
 })
 watch (() => props.postoSel, (posto) => {
   if (!posto || !mapa) return
   const coordenadas = [posto.latitude, posto.longitude]
   if ( !coordenadas) return
-  mapa.flyTo (coordenadas, 16, {duration:1})
+  mapa.flyTo (coordenadas, 14, {duration:1})
   const marker = marcadoresPorId[posto.id]
   if (marker) marker.openPopup()
 })
 </script>
 <template>
  <div style="display: flex; justify-content: end;">
- <div id="map" style="height: 95vh; width: 100%; "></div>
+ <div id="map" style="height: 100%; width: 100%; " ></div>
  </div>
 </template>
 <style scoped >
@@ -126,5 +141,8 @@ watch (() => props.postoSel, (posto) => {
 :deep(.linha-preco){
   font-size: 15px;
   margin: 5px;
+}
+:deep(.link-posto){
+  text-decoration: none;
 }
 </style>
