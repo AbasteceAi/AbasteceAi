@@ -138,6 +138,9 @@ onMounted(carregar)
   border-radius: 20px;
 
 }
+
+
+
 .mapa{
   height: 100%;
 }
@@ -158,18 +161,18 @@ onMounted(carregar)
   border-radius: 10px;
   padding: 6px 12px;
   min-width: 70px;
-  box-shadow: 1px 2px 6px 1px ;
+  box-shadow: 1px 2px 4px 1px ;
 }
 
 .preco-box .tipo {
-  font-size: 25px;
+  font-size: 15px;
   line-height: 14px;
   font-weight: 700;
   color: #1748b0;
 }
 
 .preco-box span {
-  font-size: 25px;
+  font-size: 20px;
   line-height: 25px;
   font-weight: 700;
   color: #f5a623;
@@ -188,19 +191,20 @@ onMounted(carregar)
   gap: 10px;
  }
 .titulo h3 {
-  font-size: 2rem;
+  font-size: 1.7rem;
 }
 .esta{
-  font-size: 20px;
+  font-size: 1.3rem;
   color: #f5a623;
   font-weight: 800;
-  margin: 1vw 0px;
+  margin: 1.6vw 1vw;
 }
 .dis p{
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 15px;
+  font-size: 14.5px;
+  padding: 5px;
   gap: 4px;
 }
 .distancia{
@@ -209,12 +213,17 @@ onMounted(carregar)
   gap: 10px;
   align-items: center;
   justify-content: center;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 600;
 }
+
+.distancia p svg {
+  padding: 10px 0 0 0;
+}
+
 .distancia p span{
   color: #f5a623;
-  font-size: 2rem;
+  font-size: 1.6rem;
 }
 .btn {
   text-decoration: none;

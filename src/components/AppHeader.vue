@@ -27,6 +27,8 @@ function selecionarResultado(resultado) {
     router.push(`/posto/${resultado.id}`)
   } else if (resultado.tipo === 'Rua' || resultado.tipo === 'Bairro') {
     router.push({ path: '/Mapa', query: { busca: resultado.texto } })
+  } else if (resultado.tipo === 'Usuário') {
+    router.push(`/usuario/${resultado.id}`)
   }
 
   termoPesquisa.value = ''

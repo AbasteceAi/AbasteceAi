@@ -3,7 +3,7 @@ import { supabase } from "@/data/supabaseClient"
 export async function buscarAvaliacoesDoUsuario(userId) {
   const { data, error } = await supabase
     .from('avaliacoes')
-    .select('*, postos(nome, foto_url, endereco)') // já traz os dados do posto junto
+    .select('*, postos(nome, foto_url, endereco)') 
     .eq('user_id', userId)
     .order('created_at', { ascending: false })
 
@@ -21,9 +21,12 @@ export async function buscarAvaliacoesDoPosto(postoId, usuarioAtualId) {
   if (error) throw error
 
   const autorIds = [...new Set(data.map((a) => a.user_id))]
-  const [qtdPorAutor, perfilPorAutor] = await Promise.all([
+  const avaliacaoIds = data.map((a) => a.id)
+
+  const [qtdPorAutor, perfilPorAutor, votosPorAvaliacao] = await Promise.all([
     contarAvaliacoesPorUsuarios(autorIds),
     buscarPerfisPorIds(autorIds),
+    buscarVotosDasAvaliacoes(avaliacaoIds, usuarioAtualId),
   ])
 
   return data.map((a) => ({
@@ -31,6 +34,9 @@ export async function buscarAvaliacoesDoPosto(postoId, usuarioAtualId) {
     perfil: perfilPorAutor[a.user_id] ?? null,
     qtdAvaliacoesAutor: qtdPorAutor[a.user_id] ?? 1,
     souAutor: !!usuarioAtualId && a.user_id === usuarioAtualId,
+    utilCount: votosPorAvaliacao[a.id]?.util ?? 0,
+    inutilCount: votosPorAvaliacao[a.id]?.inutil ?? 0,
+    meuVoto: votosPorAvaliacao[a.id]?.meuVoto ?? null,
   }))
 }
 
@@ -64,6 +70,66 @@ async function contarAvaliacoesPorUsuarios(userIds) {
     acc[row.user_id] = (acc[row.user_id] ?? 0) + 1
     return acc
   }, {})
+}
+
+
+async function buscarVotosDasAvaliacoes(avaliacaoIds, usuarioAtualId) {
+  if (avaliacaoIds.length === 0) return {}
+
+  const { data, error } = await supabase
+    .from('avaliacoes_votos')
+    .select('avaliacao_id, user_id, tipo')
+    .in('avaliacao_id', avaliacaoIds)
+
+  if (error) {
+    console.error('Erro ao buscar votos das avaliações:', error)
+    return {}
+  }
+
+  return data.reduce((acc, voto) => {
+    if (!acc[voto.avaliacao_id]) {
+      acc[voto.avaliacao_id] = { util: 0, inutil: 0, meuVoto: null }
+    }
+
+    if (voto.tipo === 'util') acc[voto.avaliacao_id].util++
+    if (voto.tipo === 'inutil') acc[voto.avaliacao_id].inutil++
+
+    if (usuarioAtualId && voto.user_id === usuarioAtualId) {
+      acc[voto.avaliacao_id].meuVoto = voto.tipo
+    }
+
+    return acc
+  }, {})
+}
+
+
+export async function votarAvaliacao({ avaliacaoId, userId, tipo }) {
+  const { data: existente, error: erroBusca } = await supabase
+    .from('avaliacoes_votos')
+    .select('id, tipo')
+    .eq('avaliacao_id', avaliacaoId)
+    .eq('user_id', userId)
+    .maybeSingle()
+
+  if (erroBusca) throw erroBusca
+
+  if (!existente) {
+    const { error } = await supabase
+      .from('avaliacoes_votos')
+      .insert({ avaliacao_id: avaliacaoId, user_id: userId, tipo })
+    if (error) throw error
+    return tipo
+  }
+
+  if (existente.tipo === tipo) {
+    const { error } = await supabase.from('avaliacoes_votos').delete().eq('id', existente.id)
+    if (error) throw error
+    return null
+  }
+
+  const { error } = await supabase.from('avaliacoes_votos').update({ tipo }).eq('id', existente.id)
+  if (error) throw error
+  return tipo
 }
 
 export async function atualizarAvaliacao({ avaliacaoId, nota, comentario }) {

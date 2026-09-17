@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { supabase } from '@/data/supabaseClient.js'
 import PostoBanner from '@/components/postos individuais/PostoBanner.vue'
@@ -17,13 +17,28 @@ const carregando = ref(true)
 const usuarioLogadoId = ref(null)
 
 const favorito = ref(false)
+
+async function carregarTudo() {
+  carregando.value = true
+  await carregarPosto()
+  favorito.value = await ehFavorito(route.params.id)
+}
+
 onMounted(async () => {
   const usuario = await usuarioAtual()
   usuarioLogadoId.value = usuario?.id ?? null
 
-  await carregarPosto()
-  favorito.value = await ehFavorito(route.params.id)
+  await carregarTudo()
 })
+
+watch(
+  () => route.params.id,
+  (novoId, idAntigo) => {
+    if (novoId && novoId !== idAntigo) {
+      carregarTudo()
+    }
+  },
+)
 
 async function alternarFavorito() {
   try {
