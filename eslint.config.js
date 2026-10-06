@@ -12,7 +12,9 @@ export default defineConfig([
   },
 
   globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
-
+  {
+    ignores: ['supabase/functions/**']
+  },
   {
     languageOptions: {
       globals: {
