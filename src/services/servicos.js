@@ -1,4 +1,29 @@
-import { supabase } from '@/data/supabaseClient'
+import { api, consulta } from '@/data/api'
+
+const ICONES_POR_CATEGORIA = {
+  automotivo: 'mecanica',
+  'conveniência': 'loja',
+  conveniencia: 'loja',
+  limpeza: 'limpeza',
+  higiene: 'banheiro',
+}
+
+
+export async function buscarServicosDoPosto(postoId) {
+  const data = await api.get('/servicos' + consulta({ posto_id: postoId }))
+
+  const porCategoria = data.reduce((acc, s) => {
+    ;(acc[s.desc_servico] ??= []).push(s.nome_servico)
+    return acc
+  }, {})
+
+  return Object.entries(porCategoria).map(([categoria, itens]) => ({
+    id: categoria,
+    icone: ICONES_POR_CATEGORIA[categoria] ?? categoria,
+    itens,
+  }))
+}
+/*import { supabase } from '@/data/supabaseClient'
 
 const ICONES_POR_CATEGORIA = {
   automotivo: 'mecanica',
@@ -30,4 +55,4 @@ export async function buscarServicosDoPosto(postoId) {
     icone: ICONES_POR_CATEGORIA[categoria] ?? categoria,
     itens,
   }))
-}
+}*/
