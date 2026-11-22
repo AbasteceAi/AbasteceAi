@@ -1,0 +1,37 @@
+{
+    "postos":[{
+     "id" : "0117a90a-300c-44f6-a2a1-0231d2732b66",
+     "nome" : "Posto Bravva (DiBrape)",
+     "endereco" : "Rua Quinze de Outubro, 3530 - Rio Bonito, Joinville - SC, CEP 89239-700",
+     "foto_url" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsSitc9CWlMZb4hrDc5P4Ux7aD4bWl6gKOK6O5Fm4VrGC3L2VRMnf-MPM&s=10",
+     "cnpj" : "08.925.162/0001-42",
+     "latitude" : -26.154206,
+     "longitude" : -48.903978,
+     "horario" : "Todos os dias, 6h as 22h" , 
+     "telefone": "(47) 3435-1003" 
+    }
+
+    ],
+    "precos":[
+        {
+
+        }
+    ],
+    "perfil":[{
+
+    }],
+    "servicos":[
+        {
+
+        }
+    ],
+    "favoritos":[{
+
+    }],
+    "avaliacoes_votos":[{
+
+    }],
+    "avaliacoes":[{
+
+    }]
+}
