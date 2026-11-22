@@ -1,12 +1,16 @@
 <script setup>
-import { onMounted, watch } from "vue";
+import { onMounted, watch, ref } from "vue";
 import { useRouter } from "vue-router";
 import icon from '@/assets/icon/icon.png'
 import * as L from 'leaflet';
 import { mostrarConteudo } from "@/utils/conteudo";
+import { supabase } from "@/data/supabaseClient";
+import { obterLoc } from "@/services/postos";
 
 const router = useRouter()
 let mapa = null;
+let routeLayer = null // NOVO
+const origemUsuario = ref(null) // NOVO
 
 const props = defineProps({
   postos: {
@@ -23,8 +27,10 @@ const props = defineProps({
   }
 
 })
-let marcadores = []
+
+ let marcadores = []
  let marcadoresPorId = {}
+
 function adicionarMarcadores() {
   marcadores.forEach(m => mapa.removeLayer(m))
   marcadores =[]
@@ -57,6 +63,35 @@ function adicionarMarcadores() {
     marcadoresPorId[ponto.id] = marker
   })
 }
+
+async function tracarRota(posto) {
+  if (!origemUsuario.value) {
+    try {
+      origemUsuario.value = await obterLoc()
+    } catch (e) {
+      console.error('Não foi possível obter localização:', e)
+      return
+    }
+  }
+
+  const { data, error } = await supabase.functions.invoke('get-route', {
+    body: {
+      origin: `${origemUsuario.value.lng},${origemUsuario.value.lat}`,
+      destination: `${posto.longitude},${posto.latitude}`
+    }
+  })
+
+  if (error) {
+    console.error('Erro ao buscar rota:', error)
+    return
+  }
+
+  const coords = data.coords.map(([lng, lat]) => [lat, lng])
+
+  if (routeLayer) mapa.removeLayer(routeLayer)
+  routeLayer = L.polyline(coords, { color: '#FEC12B', weight: 4 }).addTo(mapa)
+}
+
 onMounted(() => {
   const key = 'Irt1tqYSdhb5lRg6Gqq2';
   const primeiro = props.postos[0]
@@ -73,6 +108,7 @@ onMounted(() => {
 
   adicionarMarcadores()
 })
+
 watch (() => [props.postos, props.combustivelSel], () =>{
   if (mapa){ adicionarMarcadores ()
      if (props.postos[0] && marcadores.length === 1) {
@@ -80,14 +116,17 @@ watch (() => [props.postos, props.combustivelSel], () =>{
     }
   }
 })
-watch (() => props.postoSel, (posto) => {
+
+watch (() => props.postoSel,async (posto) => {
   if (!posto || !mapa) return
   const coordenadas = [posto.latitude, posto.longitude]
   if ( !coordenadas) return
   mapa.flyTo (coordenadas, 14, {duration:1})
   const marker = marcadoresPorId[posto.id]
   if (marker) marker.openPopup()
+  await tracarRota(posto)
 })
+
 </script>
 <template>
  <div style="display: flex; justify-content: end;">
