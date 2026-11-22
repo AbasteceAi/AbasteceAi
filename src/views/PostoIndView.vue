@@ -1,55 +1,71 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { supabase } from '@/data/supabaseClient.js'
 import PostoBanner from '@/components/postos individuais/PostoBanner.vue'
 import PostoServicos from '@/components/postos individuais/PostoServicos.vue'
 import PostoAvaliacao from '@/components/postos individuais/PostoAvaliacao.vue'
 import ModalAvaliacao from '@/components/postos individuais/ModalAvaliacao.vue'
 import { adicionarFavorito, removerFavorito, ehFavorito } from '@/services/favoritos'
 import { usuarioAtual } from '@/services/auth.js'
+import { buscarPostoPorId } from '@/services/postos.js'
 import { buscarAvaliacoesDoPosto } from '@/services/avaliacoes.js'
 import { buscarServicosDoPosto } from '@/services/servicos.js'
 
- const route = useRoute()
- const posto = ref(null)
+const route = useRoute()
+const posto = ref(null)
+const avaliacoes = ref([])
+const servicos = ref([])
 const carregando = ref(true)
+const erro = ref('')
 const usuarioLogadoId = ref(null)
-
 const favorito = ref(false)
 
-async function carregarTudo() {
+async function carregarPosto() {
+  const id = route.params.id?.trim()
   carregando.value = true
-  await carregarPosto()
-  favorito.value = await ehFavorito(route.params.id)
+  erro.value = ''
+  try {
+    const [data, listaAvaliacoes, listaServicos] = await Promise.all([
+      buscarPostoPorId(id),                              // GET /postos/:id
+      buscarAvaliacoesDoPosto(id, usuarioLogadoId.value),
+      buscarServicosDoPosto(id),
+    ])
+
+    const notas = data.avaliacoes.map((a) => a.nota)
+    const media = notas.length > 0 ? notas.reduce((soma, n) => soma + n, 0) / notas.length : null
+
+    posto.value = { ...data, mediaAvaliacao: media, totalAvaliacoes: notas.length }
+    avaliacoes.value = listaAvaliacoes
+    servicos.value = listaServicos
+    favorito.value = await ehFavorito(id)
+  } catch (e) {
+    posto.value = null
+    erro.value = e.message 
+  } finally {
+    carregando.value = false
+  }
 }
 
 onMounted(async () => {
   const usuario = await usuarioAtual()
   usuarioLogadoId.value = usuario?.id ?? null
-
-  await carregarTudo()
+  await carregarPosto()
 })
 
 watch(
   () => route.params.id,
   (novoId, idAntigo) => {
-    if (novoId && novoId !== idAntigo) {
-      carregarTudo()
-    }
+    if (novoId && novoId !== idAntigo) carregarPosto()
   },
 )
 
 async function alternarFavorito() {
   try {
-    if (favorito.value) {
-      await removerFavorito(posto.value.id)
-    } else {
-      await adicionarFavorito(posto.value.id)
-    }
+    if (favorito.value) await removerFavorito(posto.value.id)
+    else await adicionarFavorito(posto.value.id)
     favorito.value = !favorito.value
   } catch (e) {
-    console.error(e)
+    erro.value = e.message
   }
 }
 
@@ -60,37 +76,6 @@ function irParaAvaliar() {
 function aoSalvarAvaliacaoOuPreco() {
   carregarPosto()
 }
-
-async function carregarPosto() {
-  const id = route.params.id?.trim()
-
-  const { data, error } = await supabase
-    .from('postos')
-    .select(`*, avaliacoes (nota), precos (tipo_combustivel, preco_litro)`)
-    .eq('id', id)
-    .single()
-
-  if (error) {
-    console.error(error)
-  }else { const notas = data.avaliacoes?.map(a => a.nota) ?? []
-    const media = notas.length > 0
-      ? notas.reduce((soma, n) => soma + n, 0) / notas.length
-      : null
-
-    posto.value = {
-      ...data,
-      mediaAvaliacao: media,
-      totalAvaliacoes: notas.length
-    }
-
-    avaliacoes.value = await buscarAvaliacoesDoPosto(id, usuarioLogadoId.value)
-    servicos.value = await buscarServicosDoPosto(id)
-  }
-  carregando.value = false
-}
-
-const avaliacoes = ref([])
-const servicos = ref([])
 </script>
 
 <template>

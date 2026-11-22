@@ -77,7 +77,7 @@ onMounted(carregar)
              </div>
 
       </div>
-      <div class="distancia">
+      <div class="distancia" v-if="posto.distancia != null" >
        <p><svg fill="#FEC12B"  viewBox="0 0 24 24" class="cursor" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg"><path id="primary" d="M21.4,2.6a2,2,0,0,0-2.27-.42h0L3.2,9.4A2,2,0,0,0,2,11.52a2.26,2.26,0,0,0,1.8,2l5.58,1.13,1.13,5.58a2.26,2.26,0,0,0,2,1.8h.25a2,2,0,0,0,1.87-1.2L21.82,4.87A2,2,0,0,0,21.4,2.6Z" style="fill:#FEC12B;"></path></svg></P>
         <p>
           Este posto está a <span>{{ posto.distancia.toFixed(2) }} Km</span> de distância

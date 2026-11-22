@@ -1,9 +1,118 @@
-import { supabase } from "@/data/supabaseClient"
+import { api, consulta, buscarVarios, igual } from '@/data/api'
+
+const unicos = (lista) => [...new Set(lista)]
+
+const maisRecentes = (a, b) => String(b.created_at ?? '').localeCompare(String(a.created_at ?? ''))
+
+function validarAvaliacao({ nota, comentario }) {
+  if (!Number.isInteger(nota) || nota < 1 || nota > 5) throw new Error('A nota deve ser um número inteiro de 1 a 5')
+  if (comentario && comentario.length > 500) throw new Error('O comentário deve ter no máximo 500 caracteres')
+}
+
+
+export async function enviarAvaliacao({ postoId, usuarioId, nota, comentario }) {
+  validarAvaliacao({ nota, comentario })
+  return api.post('/avaliacoes', {
+    posto_id: postoId,
+    user_id: usuarioId,
+    nota,
+    comentario: comentario?.trim() ?? '',
+    created_at: new Date().toISOString(),
+  })
+}
+
+
+export async function buscarAvaliacoesDoUsuario(userId) {
+  const avaliacoes = (await api.get('/avaliacoes' + consulta({ user_id: userId }))).sort(maisRecentes)
+  const postos = await buscarVarios('postos', 'id', unicos(avaliacoes.map((a) => a.posto_id)))
+
+  return avaliacoes.map((a) => {
+    const p = postos.find((x) => igual(x.id, a.posto_id))
+    return { ...a, postos: p ? { nome: p.nome, foto_url: p.foto_url, endereco: p.endereco } : null }
+  })
+}
+
+
+export async function buscarAvaliacoesDoPosto(postoId, usuarioAtualId) {
+  const avaliacoes = (await api.get('/avaliacoes' + consulta({ posto_id: postoId }))).sort(maisRecentes)
+  const autorIds = unicos(avaliacoes.map((a) => a.user_id))
+
+  const [perfis, avaliacoesDosAutores, votos] = await Promise.all([
+    buscarVarios('perfil', 'id', autorIds),
+    buscarVarios('avaliacoes', 'user_id', autorIds),
+    buscarVarios('avaliacoes_votos', 'avaliacao_id', avaliacoes.map((a) => a.id)),
+  ])
+
+  return avaliacoes.map((a) => {
+    const perfil = perfis.find((p) => igual(p.id, a.user_id))
+    const votosDaAvaliacao = votos.filter((v) => igual(v.avaliacao_id, a.id))
+    const meu = usuarioAtualId ? votosDaAvaliacao.find((v) => igual(v.user_id, usuarioAtualId)) : null
+
+    return {
+      ...a,
+      perfil: perfil ? { id: perfil.id, nome: perfil.nome, foto_url: perfil.foto_url } : null,
+      qtdAvaliacoesAutor: avaliacoesDosAutores.filter((x) => igual(x.user_id, a.user_id)).length || 1,
+      souAutor: !!usuarioAtualId && igual(a.user_id, usuarioAtualId),
+      utilCount: votosDaAvaliacao.filter((v) => v.tipo === 'util').length,
+      inutilCount: votosDaAvaliacao.filter((v) => v.tipo === 'inutil').length,
+      meuVoto: meu?.tipo ?? null,
+    }
+  })
+}
+
+
+export async function buscarAvaliacaoPorId(avaliacaoId) {
+  return api.get(`/avaliacoes/${avaliacaoId}`)
+}
+
+
+export async function atualizarAvaliacao({ avaliacaoId, nota, comentario }) {
+  validarAvaliacao({ nota, comentario })
+  const atual = await api.get(`/avaliacoes/${avaliacaoId}`)
+  return api.put(`/avaliacoes/${avaliacaoId}`, {
+    ...atual,
+    nota,
+    comentario: comentario?.trim() ?? '',
+    atualizado_em: new Date().toISOString(),
+  })
+}
+
+
+export async function excluirAvaliacao(avaliacaoId) {
+  const votos = await api.get('/avaliacoes_votos' + consulta({ avaliacao_id: avaliacaoId }))
+  await Promise.all(votos.map((v) => api.delete(`/avaliacoes_votos/${v.id}`)))
+  await api.delete(`/avaliacoes/${avaliacaoId}`)
+}
+
+
+export async function votarAvaliacao({ avaliacaoId, userId, tipo }) {
+  if (!['util', 'inutil'].includes(tipo)) throw new Error('Tipo de voto inválido')
+
+  const [existente] = await api.get(
+    '/avaliacoes_votos' + consulta({ avaliacao_id: avaliacaoId, user_id: userId }),
+  )
+
+  if (!existente) {
+    await api.post('/avaliacoes_votos', {
+      avaliacao_id: avaliacaoId,
+      user_id: userId,
+      tipo,
+    })
+    return tipo
+  }
+  if (existente.tipo === tipo) {
+    await api.delete(`/avaliacoes_votos/${existente.id}`)
+    return null
+  }
+  await api.patch(`/avaliacoes_votos/${existente.id}`, { tipo })
+  return tipo
+}
+/*import { supabase } from "@/data/supabaseClient"
 
 export async function buscarAvaliacoesDoUsuario(userId) {
   const { data, error } = await supabase
     .from('avaliacoes')
-    .select('*, postos(nome, foto_url, endereco)') 
+    .select('*, postos(nome, foto_url, endereco)')
     .eq('user_id', userId)
     .order('created_at', { ascending: false })
 
@@ -144,4 +253,4 @@ export async function atualizarAvaliacao({ avaliacaoId, nota, comentario }) {
 export async function excluirAvaliacao(avaliacaoId) {
   const { error } = await supabase.from('avaliacoes').delete().eq('id', avaliacaoId)
   if (error) throw error
-}
+}*/

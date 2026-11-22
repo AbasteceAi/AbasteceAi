@@ -4,7 +4,6 @@ import { useRouter } from "vue-router";
 import icon from '@/assets/icon/icon.png'
 import * as L from 'leaflet';
 import { mostrarConteudo } from "@/utils/conteudo";
-import { supabase } from "@/data/supabaseClient";
 import { obterLoc } from "@/services/postos";
 
 const router = useRouter()
@@ -64,6 +63,7 @@ function adicionarMarcadores() {
   })
 }
 
+
 async function tracarRota(posto) {
   if (!origemUsuario.value) {
     try {
@@ -74,22 +74,25 @@ async function tracarRota(posto) {
     }
   }
 
-  const { data, error } = await supabase.functions.invoke('get-route', {
-    body: {
-      origin: `${origemUsuario.value.lng},${origemUsuario.value.lat}`,
-      destination: `${posto.longitude},${posto.latitude}`
-    }
-  })
+  const { lng: oLng, lat: oLat } = origemUsuario.value
+  const url =
+    `https://router.project-osrm.org/route/v1/driving/` +
+    `${oLng},${oLat};${posto.longitude},${posto.latitude}` +
+    `?overview=full&geometries=geojson`
 
-  if (error) {
+  try {
+    const res = await fetch(url)
+    if (!res.ok) throw new Error(`Erro ${res.status}`)
+    const json = await res.json()
+    const coordenadas = json.routes?.[0]?.geometry?.coordinates
+    if (!coordenadas) return
+
+    const coords = coordenadas.map(([lng, lat]) => [lat, lng])
+    if (routeLayer) mapa.removeLayer(routeLayer)
+    routeLayer = L.polyline(coords, { color: '#FEC12B', weight: 4 }).addTo(mapa)
+  } catch (error) {
     console.error('Erro ao buscar rota:', error)
-    return
   }
-
-  const coords = data.coords.map(([lng, lat]) => [lat, lng])
-
-  if (routeLayer) mapa.removeLayer(routeLayer)
-  routeLayer = L.polyline(coords, { color: '#FEC12B', weight: 4 }).addTo(mapa)
 }
 
 onMounted(() => {
