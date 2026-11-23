@@ -11,7 +11,7 @@ const equipe = [
     github: "https://github.com/brunasiebertm",
     linkedin: "https://www.linkedin.com/in/bruna-siebert-98b68a360/",
     email: "bruna.siebert@gmail.com"
-    
+
   },
 
   {
@@ -23,7 +23,7 @@ const equipe = [
     github: "https://github.com/esterdesouza",
     linkedin: "https://www.linkedin.com/in/ester-souza-68b83a35a/",
     email: "estersv18@gmail.com"
-    
+
   },
   {
     nome: 'Giulia Côrrea',
@@ -34,7 +34,7 @@ const equipe = [
     github: "https://github.com/giuliamcorrea",
     linkedin: "https://www.linkedin.com/in/giulia-marcos-corr%C3%AAa-93168a360/",
     email: "marcoscorreagiulia@gmail.com"
-    
+
   },
   {
     nome: 'Halicya Recalde',
@@ -45,7 +45,7 @@ const equipe = [
     github: "https://github.com/halicyafranca",
     linkedin: "https://www.linkedin.com/in/halicya-gabrielly-4b65a4365/",
     email: "halicyagabrielly@gmail.com"
-    
+
   },
   {
     nome: 'Laura Luciano',
@@ -56,7 +56,7 @@ const equipe = [
     github: "https://github.com/lauraluciano",
     linkedin: "https://www.linkedin.com/in/laura-werner-516738360/",
     email: "lauralluciano25@gmail.com"
-    
+
   },
   {
     nome: 'Tiago Perin',
@@ -67,7 +67,7 @@ const equipe = [
     github: "https://github.com/TiagoMPerin",
     linkedin: "https://www.linkedin.com/in/tiago-perin-76b687360/",
     email: "tiagomartinsperin@gmail.com"
-    
+
   },
 ]
 </script>
@@ -102,7 +102,7 @@ const equipe = [
       </p>
     </section>
 
-    <section class="equipe"> 
+    <section class="equipe">
       <h2>Conheça nossa equipe</h2>
       <div class="linha2"></div>
       <p>

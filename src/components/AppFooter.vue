@@ -46,7 +46,7 @@ footer {
   background-repeat: no-repeat;
   height: 300px;
   margin: 0;
- 
+
 }
 
 .footer {
