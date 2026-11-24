@@ -27,11 +27,11 @@
 As chaves estrangeiras (`posto_id`, `user_id`, `avaliacao_id`) guardam o `id` do registro relacionado. O JSON Server não valida nem apaga em cascata, então as junções e a ordem de exclusão são tratadas no código dos services.
 ## Customize configuration
 - *Bruna - Perfil*
-- *Ester - Servicos*
+- *Ester - Avaliações*
 - *Giulia - Favoritos*
 - *Halicya - Postos*
 - *Laura - Precos*
-- *Tiago - Avaliações*
+- *Tiago - Servicos*
 
 ## Iniciar a instalação das dependencias
 
