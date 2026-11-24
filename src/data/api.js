@@ -44,7 +44,6 @@ export const api = {
   delete: (caminho) => requisicao('DELETE', caminho),
 }
 
-// Monta a query string. Arrays repetem a chave: { id: [1, 2] } -> ?id=1&id=2
 export function consulta(params) {
   const qs = new URLSearchParams()
   for (const [chave, valor] of Object.entries(params)) {
